@@ -1,22 +1,12 @@
-# 🏗 Scaffold-Stark
+# 🗳️✋ Civis
 
-<h4 align="center">
-  <a href="https://docs.scaffoldstark.com/">Documentation</a> |
-  <a href="https://scaffoldstark.com/">Website</a> |
-  <a href="https://scaffold-stark-demo.vercel.app/debug">Demo</a>
-</h4>
+![System](./packages/nextjs/public/civis_logo.png)
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on Starknet blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+🧪 An open-source, voting system to decide about new president.
 
 ⚙️ Built using NextJS, Starknet.js, Scarb, Starknet-React, Starknet Foundry.
 
-- ✅ **Contract Fast Reload**: Your frontend auto-adapts to your smart contracts as you deploy them.
-- 🪝 [**Custom hooks**](https://docs.scaffoldstark.com/hooks/): Collection of React hooks wrapper around [starknet-react](https://starknet-react.com/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldstark.com/components): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Prefunded Account**: Quickly test your application with a burner wallet and prefunded accounts.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with Starknet network.
-
-![Debug Contracts tab](./packages/nextjs/public/debug-image.png)
+![System](./packages/nextjs/public/functions.png)
 
 ## 0. Requirements
 
