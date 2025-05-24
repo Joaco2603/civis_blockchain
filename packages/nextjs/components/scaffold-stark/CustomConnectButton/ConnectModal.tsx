@@ -66,12 +66,15 @@ const ConnectModal = () => {
 
   return (
     <div>
+      <button className="w-full pointer-none">
       <label
         htmlFor="connect-modal"
-        className="rounded-[18px]  btn-sm font-bold px-8 bg-btn-wallet py-3 cursor-pointer"
+        className="pointer-events-auto cursor-pointer"
       >
-        <span>Connect</span>
+        <span className="bg-blue">Conectar wallet</span>
       </label>
+      </button>
+
 
       <input
         ref={modalRef}

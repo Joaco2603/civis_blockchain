@@ -29,7 +29,14 @@
     "verify": "yarn workspace @ss-2/snfoundry verify"
   },
   "dependencies": {
-    "postcss": "^8.4.38"
+    "@radix-ui/react-progress": "^1.1.7",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
+    "postcss": "^8.4.38",
+    "recharts": "^2.15.3",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss-animated": "^2.0.0"
   },
   "devDependencies": {
     "daisyui": "^4.7.3",

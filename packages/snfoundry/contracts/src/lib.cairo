@@ -1,2 +1,4 @@
-pub mod YourContract;
-
+mod VotingNFT;
+mod contracts{
+    use super::VotingNFT::{IVotingNFTDispatcher, IVotingNFTDispatcherTrait};
+}

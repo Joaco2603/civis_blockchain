@@ -1,62 +1,35 @@
-import Link from "next/link";
-import Image from "next/image";
-import { ConnectedAddress } from "~~/components/ConnectedAddress";
+import { LoginForm } from "~~/components/login-form";
+import { CustomConnectButton } from "~~/components/scaffold-stark/CustomConnectButton";
+import { SwitchTheme } from "~~/components/SwitchTheme";
+
 
 const Home = () => {
   return (
-    <div className="flex items-center flex-col flex-grow pt-10">
-      <div className="px-5">
-        <h1 className="text-center">
-          <span className="block text-2xl mb-2">Welcome to</span>
-          <span className="block text-4xl font-bold">Scaffold-Stark 2</span>
-        </h1>
-        <ConnectedAddress />
-        <p className="text-center text-lg">
-          Edit your smart contract{" "}
-          <code className="bg-underline italic text-base font-bold max-w-full break-words break-all inline-block">
-            YourContract.cairo
-          </code>{" "}
-          in{" "}
-          <code className="bg-underline italic text-base font-bold max-w-full break-words break-all inline-block">
-            packages/snfoundry/contracts/src
-          </code>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950 p-4">
+      <SwitchTheme/>
+    <div className="w-full max-w-md">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Civis</h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Plataforma de votación segura y transparente basada en blockchain
         </p>
       </div>
 
-      <div className="bg-container flex-grow w-full mt-16 px-8 py-12">
-        <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-          <div className="flex flex-col bg-base-100 relative text-[12px] px-10 py-10 text-center items-center max-w-xs rounded-3xl border border-gradient">
-            <div className="trapeze"></div>
-            <Image
-              src="/debug-icon.svg"
-              alt="icon"
-              width={26}
-              height={30}
-            ></Image>
-            <p>
-              Tinker with your smart contract using the{" "}
-              <Link href="/debug" passHref className="link">
-                Debug Contracts
-              </Link>{" "}
-              tab.
-            </p>
-          </div>
-          <div className="flex flex-col bg-base-100 relative text-[12px] px-10 py-10 text-center items-center max-w-xs rounded-3xl border border-gradient">
-            <div className="trapeze"></div>
-            <Image
-              src="/explorer-icon.svg"
-              alt="icon"
-              width={20}
-              height={32}
-            ></Image>
-            <p>
-              Play around with Multiwrite transactions using
-              useScaffoldMultiWrite() hook
-            </p>
-          </div>
+      <LoginForm />
+
+      <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p>Para probar la plataforma, puedes usar:</p>
+        <div className="mt-2 p-3 bg-gray-100 dark:bg-gray-800 rounded-md text-left">
+          <p>
+            <strong>Tu wallet:</strong> <code className="text-blue-600 dark:text-blue-400">0xj429421jfkda</code>
+          </p>
+          <p>
+            <strong>Debes ser usuario:</strong> <code className="text-blue-600 dark:text-blue-400">verificado</code>
+          </p>
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

@@ -13,7 +13,11 @@ export type ScaffoldConfig = {
 };
 
 const scaffoldConfig = {
-  targetNetworks: [chains.devnet],
+  targetNetworks: [
+    process.env.NEXT_PUBLIC_USE_DEVNET === "true"
+    ? chains.devnet
+    : chains.mainnetFork,
+  ],
   // Only show the Burner Wallet when running on devnet
   onlyLocalBurnerWallet: false,
   rpcProviderUrl: {
