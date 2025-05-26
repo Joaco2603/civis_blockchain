@@ -6,7 +6,7 @@ import {
   ContractAbi,
   ContractName,
   ExtractAbiFunctionNamesScaffold,
-  UseScaffoldReadConfig,
+  UseScaffoldReadConfig
 } from "~~/utils/scaffold-stark/contract";
 
 export const useScaffoldReadContract = <
@@ -15,7 +15,7 @@ export const useScaffoldReadContract = <
   TFunctionName extends ExtractAbiFunctionNamesScaffold<
     ContractAbi<TContractName>,
     "view"
-  >,
+  >
 >({
   contractName,
   functionName,
@@ -33,7 +33,7 @@ export const useScaffoldReadContract = <
     enabled:
       args && (!Array.isArray(args) || !args.some((arg) => arg === undefined)),
     blockIdentifier: "pending" as BlockNumber,
-    ...(readConfig as any),
+    ...(readConfig as any)
   }) as Omit<ReturnType<typeof useReadContract>, "data"> & {
     data: AbiFunctionOutputs<ContractAbi, TFunctionName> | undefined;
   };

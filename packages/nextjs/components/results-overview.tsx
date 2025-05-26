@@ -1,24 +1,46 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Chart,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   ChartLegend,
-  ChartLegendItem,
-} from "@/components/ui/chart"
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from "recharts"
+  ChartLegendItem
+} from "@/components/ui/chart";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Cell
+} from "recharts";
 
 export function ResultsOverview() {
   const data = [
-    { name: "Ana Martínez", votes: 1245789, percentage: 42.8, color: "#3b82f6" },
-    { name: "Carlos Rodríguez", votes: 1052436, percentage: 36.2, color: "#ef4444" },
-    { name: "Elena Sánchez", votes: 458921, percentage: 15.8, color: "#10b981" },
+    {
+      name: "Ana Martínez",
+      votes: 1245789,
+      percentage: 42.8,
+      color: "#3b82f6"
+    },
+    {
+      name: "Carlos Rodríguez",
+      votes: 1052436,
+      percentage: 36.2,
+      color: "#ef4444"
+    },
+    {
+      name: "Elena Sánchez",
+      votes: 458921,
+      percentage: 15.8,
+      color: "#10b981"
+    },
     { name: "Miguel Torres", votes: 125478, percentage: 4.3, color: "#f59e0b" },
-    { name: "Voto en Blanco", votes: 25874, percentage: 0.9, color: "#6b7280" },
-  ]
+    { name: "Voto en Blanco", votes: 25874, percentage: 0.9, color: "#6b7280" }
+  ];
 
   return (
     <Card>
@@ -30,7 +52,11 @@ export function ResultsOverview() {
           <Chart>
             <ChartContainer>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data} layout="vertical" margin={{ top: 10, right: 10, left: 100, bottom: 0 }}>
+                <BarChart
+                  data={data}
+                  layout="vertical"
+                  margin={{ top: 10, right: 10, left: 100, bottom: 0 }}
+                >
                   <XAxis
                     type="number"
                     axisLine={false}
@@ -53,7 +79,11 @@ export function ResultsOverview() {
                     ))}
                   </Bar>
                   <ChartTooltip
-                    content={<ChartTooltipContent formatter={(value: any) => [`${value}%`, "Porcentaje"]} />}
+                    content={
+                      <ChartTooltipContent
+                        formatter={(value: any) => [`${value}%`, "Porcentaje"]}
+                      />
+                    }
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -64,16 +94,24 @@ export function ResultsOverview() {
         <div className="mt-4">
           <ChartLegend>
             {data.map((entry, index) => (
-              <ChartLegendItem key={index} name={`${entry.name} (${entry.percentage}%)`} color={entry.color} />
+              <ChartLegendItem
+                key={index}
+                name={`${entry.name} (${entry.percentage}%)`}
+                color={entry.color}
+              />
             ))}
           </ChartLegend>
         </div>
 
         <div className="mt-6 text-center">
-          <div className="text-sm text-gray-500 dark:text-gray-400">Total de votos contabilizados: 2,908,498</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">Participación: 68.4% del padrón electoral</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Total de votos contabilizados: 2,908,498
+          </div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Participación: 68.4% del padrón electoral
+          </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

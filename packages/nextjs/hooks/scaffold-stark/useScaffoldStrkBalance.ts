@@ -19,7 +19,7 @@ const useScaffoldStrkBalance = ({ address }: UseScaffoldStrkBalanceProps) => {
     watch: true,
     enabled: true,
     args: address ? [address] : [],
-    blockIdentifier: "pending" as BlockNumber,
+    blockIdentifier: "pending" as BlockNumber
   });
 
   return {
@@ -27,7 +27,7 @@ const useScaffoldStrkBalance = ({ address }: UseScaffoldStrkBalanceProps) => {
     decimals: 18,
     symbol: "STRK",
     formatted: data ? formatUnits(data as unknown as bigint) : "0",
-    ...props,
+    ...props
   };
 };
 

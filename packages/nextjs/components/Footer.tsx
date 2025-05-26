@@ -13,7 +13,7 @@ import Link from "next/link";
  */
 export const Footer = () => {
   const nativeCurrencyPrice = useGlobalState(
-    (state) => state.nativeCurrencyPrice,
+    (state) => state.nativeCurrencyPrice
   );
   const { targetNetwork } = useTargetNetwork();
 
@@ -27,9 +27,5 @@ export const Footer = () => {
     targetNetwork.id === mainnet.id &&
     targetNetwork.network === mainnet.network;
 
-  return (
-    <div>
-      
-    </div>
-  );
+  return <div></div>;
 };

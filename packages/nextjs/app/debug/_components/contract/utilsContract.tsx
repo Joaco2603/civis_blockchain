@@ -6,7 +6,7 @@ import {
   CairoResult,
   CairoResultVariant,
   num,
-  BigNumberish,
+  BigNumberish
 } from "starknet";
 import {
   isCairoArray,
@@ -18,14 +18,14 @@ import {
   isCairoResult,
   isCairoTuple,
   isCairoU256,
-  parseGenericType,
+  parseGenericType
 } from "~~/utils/scaffold-stark";
 import {
   AbiEnum,
   AbiFunction,
   AbiParameter,
   AbiStruct,
-  parseTuple,
+  parseTuple
 } from "~~/utils/scaffold-stark/contract";
 /**
  * Generates a key based on function metadata
@@ -33,7 +33,7 @@ import {
 export const getFunctionInputKey = (
   functionName: string,
   input: AbiParameter,
-  inputIndex: number,
+  inputIndex: number
 ): string => {
   const name = input?.name || `input_${inputIndex}_`;
   return functionName + "_" + name + "_" + input.type;
@@ -107,7 +107,7 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
     if (isCairoArray(key)) {
       const genericType = parseGenericType(key)[0];
       return value.map((arrayValue: any) =>
-        _encodeValueFromKey(genericType, arrayValue),
+        _encodeValueFromKey(genericType, arrayValue)
       );
     }
 
@@ -140,8 +140,8 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
               CairoOptionVariant.Some,
               _encodeValueFromKey(
                 (enumObject.Some as FormStructValue).type,
-                (enumObject.Some as FormStructValue).value,
-              ),
+                (enumObject.Some as FormStructValue).value
+              )
             );
 
           // set to none as default
@@ -160,8 +160,8 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
               CairoResultVariant.Ok,
               _encodeValueFromKey(
                 (enumObject.Ok as FormStructValue).type,
-                (enumObject.Ok as FormStructValue).value,
-              ),
+                (enumObject.Ok as FormStructValue).value
+              )
             );
           else if (
             typeof (enumObject.Err as FormStructValue).value !== undefined
@@ -170,8 +170,8 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
               CairoResultVariant.Err,
               _encodeValueFromKey(
                 (enumObject.Err as FormStructValue).type,
-                (enumObject.Err as FormStructValue).value,
-              ),
+                (enumObject.Err as FormStructValue).value
+              )
             );
           }
         }
@@ -182,10 +182,10 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
             (enumObject[variant].value || "").trim().length > 0
               ? _encodeValueFromKey(
                   (enumObject[variant] as FormStructValue).type,
-                  (enumObject[variant] as FormStructValue).value,
+                  (enumObject[variant] as FormStructValue).value
                 )
-              : undefined,
-          ]),
+              : undefined
+          ])
         );
 
         if (enumVariants.includes("Some") && enumVariants.includes("None")) {
@@ -203,10 +203,10 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
             structObjectKey,
             _encodeValueFromKey(
               (structObjectValue as FormStructValue).type,
-              (structObjectValue as FormStructValue).value,
-            ),
+              (structObjectValue as FormStructValue).value
+            )
           ];
-        },
+        }
       );
       return Object.fromEntries(remappedEntries);
     }
@@ -217,8 +217,8 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
       const tupleValues = parseTuple(value);
       return cairo.tuple(
         ...tupleValues.map((tupleValue, index) =>
-          _encodeValueFromKey(tupleKeys[index], tupleValue),
-        ),
+          _encodeValueFromKey(tupleKeys[index], tupleValue)
+        )
       );
     }
 
@@ -253,7 +253,7 @@ export const getArgsAsStringInputFromForm = (form: Record<string, any>) => {
 
 const adjustInput = (input: AbiParameter): AbiParameter => {
   return {
-    ...input,
+    ...input
   };
 };
 
@@ -261,7 +261,7 @@ export const transformAbiFunction = (abiFunction: AbiFunction): AbiFunction => {
   return {
     ...abiFunction,
     inputs: abiFunction.inputs.map((value) =>
-      adjustInput(value as AbiParameter),
-    ),
+      adjustInput(value as AbiParameter)
+    )
   };
 };

@@ -6,13 +6,13 @@ const withPWA = nextPWA({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
   register: true,
-  skipWaiting: true,
+  skipWaiting: true
 });
 
 const nextConfig = {
   reactStrictMode: true,
   logging: {
-    incomingRequests: false,
+    incomingRequests: false
   },
   images: {
     dangerouslyAllowSVG: true,
@@ -20,20 +20,20 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "identicon.starknet.id",
-        pathname: "/**",
+        pathname: "/**"
       },
       {
         protocol: "https",
         hostname: "img.starkurabu.com",
-        pathname: "/**",
-      },
-    ],
+        pathname: "/**"
+      }
+    ]
   },
   typescript: {
-    ignoreBuildErrors: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true",
+    ignoreBuildErrors: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true"
   },
   eslint: {
-    ignoreDuringBuilds: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true",
+    ignoreDuringBuilds: process.env.NEXT_PUBLIC_IGNORE_BUILD_ERROR === "true"
   },
   webpack: (config, { dev, isServer }) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
@@ -41,17 +41,17 @@ const nextConfig = {
     config.plugins.push(
       new webpack.NormalModuleReplacementPlugin(/^node:(.*)$/, (resource) => {
         resource.request = resource.request.replace(/^node:/, "");
-      }),
+      })
     );
 
     if (dev && !isServer) {
       config.infrastructureLogging = {
-        level: "error",
+        level: "error"
       };
     }
 
     return config;
-  },
+  }
 };
 
 export default withPWA(nextConfig);

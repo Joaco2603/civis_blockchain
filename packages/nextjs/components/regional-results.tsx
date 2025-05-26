@@ -1,21 +1,32 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Chart, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Chart,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
+} from "@/components/ui/chart";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { useState } from "react";
 
 export function RegionalResults() {
-  const [selectedRegion, setSelectedRegion] = useState("norte")
+  const [selectedRegion, setSelectedRegion] = useState("norte");
 
   const regions = [
     { value: "norte", label: "Región Norte" },
     { value: "sur", label: "Región Sur" },
     { value: "este", label: "Región Este" },
     { value: "oeste", label: "Región Oeste" },
-    { value: "central", label: "Región Central" },
-  ]
+    { value: "central", label: "Región Central" }
+  ];
 
   const resultsData = {
     norte: [
@@ -23,39 +34,39 @@ export function RegionalResults() {
       { name: "Carlos Rodríguez", value: 32.1, color: "#ef4444" },
       { name: "Elena Sánchez", value: 18.5, color: "#10b981" },
       { name: "Miguel Torres", value: 3.2, color: "#f59e0b" },
-      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" },
+      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" }
     ],
     sur: [
       { name: "Ana Martínez", value: 38.7, color: "#3b82f6" },
       { name: "Carlos Rodríguez", value: 42.3, color: "#ef4444" },
       { name: "Elena Sánchez", value: 12.8, color: "#10b981" },
       { name: "Miguel Torres", value: 5.1, color: "#f59e0b" },
-      { name: "Voto en Blanco", value: 1.1, color: "#6b7280" },
+      { name: "Voto en Blanco", value: 1.1, color: "#6b7280" }
     ],
     este: [
       { name: "Ana Martínez", value: 41.5, color: "#3b82f6" },
       { name: "Carlos Rodríguez", value: 35.8, color: "#ef4444" },
       { name: "Elena Sánchez", value: 16.2, color: "#10b981" },
       { name: "Miguel Torres", value: 5.5, color: "#f59e0b" },
-      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" },
+      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" }
     ],
     oeste: [
       { name: "Ana Martínez", value: 44.1, color: "#3b82f6" },
       { name: "Carlos Rodríguez", value: 33.7, color: "#ef4444" },
       { name: "Elena Sánchez", value: 17.3, color: "#10b981" },
       { name: "Miguel Torres", value: 3.9, color: "#f59e0b" },
-      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" },
+      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" }
     ],
     central: [
       { name: "Ana Martínez", value: 43.2, color: "#3b82f6" },
       { name: "Carlos Rodríguez", value: 36.8, color: "#ef4444" },
       { name: "Elena Sánchez", value: 14.5, color: "#10b981" },
       { name: "Miguel Torres", value: 4.5, color: "#f59e0b" },
-      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" },
-    ],
-  }
+      { name: "Voto en Blanco", value: 1.0, color: "#6b7280" }
+    ]
+  };
 
-  const data = resultsData[selectedRegion as keyof typeof resultsData]
+  const data = resultsData[selectedRegion as keyof typeof resultsData];
 
   return (
     <Card>
@@ -90,7 +101,9 @@ export function RegionalResults() {
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                    label={({ name, percent }) =>
+                      `${name}: ${(percent * 100).toFixed(1)}%`
+                    }
                   >
                     {data.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -104,7 +117,8 @@ export function RegionalResults() {
         </div>
 
         <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-          Participación en {regions.find((r) => r.value === selectedRegion)?.label}:
+          Participación en{" "}
+          {regions.find((r) => r.value === selectedRegion)?.label}:
           {selectedRegion === "norte"
             ? " 72.1%"
             : selectedRegion === "sur"
@@ -117,5 +131,5 @@ export function RegionalResults() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

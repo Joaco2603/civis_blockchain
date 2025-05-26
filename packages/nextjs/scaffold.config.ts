@@ -15,8 +15,8 @@ export type ScaffoldConfig = {
 const scaffoldConfig = {
   targetNetworks: [
     process.env.NEXT_PUBLIC_USE_DEVNET === "true"
-    ? chains.devnet
-    : chains.mainnetFork,
+      ? chains.devnet
+      : chains.mainnetFork
   ],
   // Only show the Burner Wallet when running on devnet
   onlyLocalBurnerWallet: false,
@@ -32,7 +32,7 @@ const scaffoldConfig = {
     mainnet:
       process.env.NEXT_PUBLIC_MAINNET_PROVIDER_URL ||
       process.env.NEXT_PUBLIC_PROVIDER_URL ||
-      "",
+      ""
   },
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect if you only target the local network (default is 30_000)
@@ -43,7 +43,7 @@ const scaffoldConfig = {
    * 2. If user is not connected to any wallet:  On reload, connect to burner wallet if burnerWallet.enabled is true && burnerWallet.onlyLocal is false
    */
   autoConnectTTL: 60000,
-  walletAutoConnect: true,
+  walletAutoConnect: true
 } as const satisfies ScaffoldConfig;
 
 export default scaffoldConfig;

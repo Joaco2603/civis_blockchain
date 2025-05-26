@@ -3,7 +3,7 @@ import { getFunctionInputKey, getInitialTupleFormState } from "./utilsContract";
 import {
   AbiEnum,
   AbiParameter,
-  AbiStruct,
+  AbiStruct
 } from "~~/utils/scaffold-stark/contract";
 import { replacer } from "~~/utils/scaffold-stark/common";
 import { ContractInput } from "./ContractInput";
@@ -28,7 +28,7 @@ export const ArrayInput = ({
   parentStateObjectKey,
   abiParameter,
   setFormErrorMessage,
-  isDisabled,
+  isDisabled
 }: ArrayProps) => {
   // array in object representation
   const [inputArr, setInputArr] = useState<any>({});
@@ -45,8 +45,8 @@ export const ArrayInput = ({
     setParentForm({
       ...parentForm,
       [parentStateObjectKey]: Object.values(inputArr).filter(
-        (item) => item !== null,
-      ),
+        (item) => item !== null
+      )
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(inputArr, replacer)]);
@@ -69,7 +69,7 @@ export const ArrayInput = ({
                 setForm={(
                   nextInputRecipe:
                     | Record<string, any>
-                    | ((arg: Record<string, any>) => void),
+                    | ((arg: Record<string, any>) => void)
                 ) => {
                   // if we find a function (a.k.a setState recipe), we run it to generate the next state based on recpe, else just use the object passed in
                   const nextInputObject: Record<string, any> =
@@ -80,7 +80,7 @@ export const ArrayInput = ({
                   setInputArr((currentInputArray: any) => {
                     return {
                       ...currentInputArray,
-                      [index]: nextInputObject?.[index] || null,
+                      [index]: nextInputObject?.[index] || null
                     };
                   });
                 }}
@@ -89,7 +89,7 @@ export const ArrayInput = ({
                 paramType={
                   {
                     name: `${abiParameter.name}[${index}]`,
-                    type: elementType,
+                    type: elementType
                   } as AbiParameter
                 }
                 setFormErrorMessage={setFormErrorMessage}
@@ -102,7 +102,7 @@ export const ArrayInput = ({
                 const nextLength = arrLength + 1;
                 setInputArr((prev: any) => ({
                   ...prev,
-                  [nextLength]: null,
+                  [nextLength]: null
                 }));
                 setArrLength(nextLength);
               }}

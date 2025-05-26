@@ -3,7 +3,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { InvokeTransactionReceiptResponse } from "starknet";
 import {
   CheckCircleIcon,
-  DocumentDuplicateIcon,
+  DocumentDuplicateIcon
 } from "@heroicons/react/24/outline";
 import { decodeContractResponse } from "~~/app/debug/_components/contract";
 
@@ -14,7 +14,7 @@ export const TxReceipt = (
     | bigint
     | Record<string, any>
     | InvokeTransactionReceiptResponse
-    | undefined,
+    | undefined
 ) => {
   const [txResultCopied, setTxResultCopied] = useState(false);
 
@@ -35,7 +35,7 @@ export const TxReceipt = (
                 abi: [],
                 functionOutputs: [],
                 asText: true,
-                showAsString: true,
+                showAsString: true
               }) as string
             }
             onCopy={() => {
@@ -63,7 +63,7 @@ export const TxReceipt = (
               resp: txResult,
               abi: [],
               functionOutputs: [],
-              asText: true,
+              asText: true
             })}
           </pre>
         </div>

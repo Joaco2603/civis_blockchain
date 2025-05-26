@@ -27,7 +27,7 @@ function getConnectors() {
 
   const connectors: InjectedConnector[] = [argent(), braavos()];
   const isDevnet = targetNetworks.some(
-    (network) => (network.network as string) === "devnet",
+    (network) => (network.network as string) === "devnet"
   );
 
   if (!isDevnet) {

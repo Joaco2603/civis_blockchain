@@ -6,7 +6,7 @@ import { useProvider, useAccount } from "@starknet-react/core";
 import { useMemo } from "react";
 
 export const useScaffoldContract = <TContractName extends ContractName>({
-  contractName,
+  contractName
 }: {
   contractName: TContractName;
 }) => {
@@ -22,7 +22,7 @@ export const useScaffoldContract = <TContractName extends ContractName>({
     const contractInstance = new Contract(
       deployedContractData.abi as Abi,
       deployedContractData.address,
-      publicClient,
+      publicClient
     );
 
     if (account) {
@@ -43,6 +43,6 @@ export const useScaffoldContract = <TContractName extends ContractName>({
 
   return {
     data: contract,
-    isLoading: deployedContractLoading,
+    isLoading: deployedContractLoading
   };
 };

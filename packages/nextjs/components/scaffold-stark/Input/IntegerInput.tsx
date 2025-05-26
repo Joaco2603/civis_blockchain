@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   CommonInputProps,
   InputBase,
-  isValidInteger,
+  isValidInteger
 } from "~~/components/scaffold-stark";
 import { parseEther } from "ethers";
 
@@ -20,7 +20,7 @@ export const IntegerInput = ({
   disabled,
   variant = "core::integer::u256",
   disableMultiplyBy1e18 = false,
-  onError,
+  onError
 }: IntegerInputProps) => {
   const [inputError, setInputError] = useState(false);
   const multiplyBy1e18 = useCallback(() => {

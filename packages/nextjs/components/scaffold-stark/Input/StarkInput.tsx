@@ -3,7 +3,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import {
   CommonInputProps,
   InputBase,
-  SIGNED_NUMBER_REGEX,
+  SIGNED_NUMBER_REGEX
 } from "~~/components/scaffold-stark";
 import { useGlobalState } from "~~/services/store/store";
 
@@ -12,7 +12,7 @@ const MAX_DECIMALS_USD = 2;
 function starkValueToDisplayValue(
   usdMode: boolean,
   starkValue: string,
-  currencyPrice: number,
+  currencyPrice: number
 ) {
   if (usdMode && currencyPrice) {
     const parsedStrkValue = parseFloat(starkValue);
@@ -34,7 +34,7 @@ function starkValueToDisplayValue(
 function displayValueTostarkValue(
   usdMode: boolean,
   displayValue: string,
-  currencyPrice: number,
+  currencyPrice: number
 ) {
   if (usdMode && currencyPrice) {
     const parsedDisplayValue = parseFloat(displayValue);
@@ -61,13 +61,13 @@ export const StarkInput = ({
   placeholder,
   onChange,
   disabled,
-  usdMode,
+  usdMode
 }: CommonInputProps & { usdMode?: boolean }) => {
   const [transitoryDisplayValue, setTransitoryDisplayValue] =
     useState<string>();
   const currencyPrice = useGlobalState((state) => state.nativeCurrencyPrice);
   const [internalUsdMode, setInternalUSDMode] = useState(
-    currencyPrice > 0 ? Boolean(usdMode) : false,
+    currencyPrice > 0 ? Boolean(usdMode) : false
   );
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export const StarkInput = ({
     const newDisplayValue = starkValueToDisplayValue(
       internalUsdMode,
       value,
-      currencyPrice,
+      currencyPrice
     );
     if (
       transitoryDisplayValue &&
@@ -112,7 +112,7 @@ export const StarkInput = ({
     const newStrkValue = displayValueTostarkValue(
       internalUsdMode,
       newValue,
-      currencyPrice,
+      currencyPrice
     );
     onChange(newStrkValue);
   };

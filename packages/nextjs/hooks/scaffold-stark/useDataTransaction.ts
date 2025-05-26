@@ -28,7 +28,7 @@ export const useDataTransaction = (blockNumber: number) => {
 
   const publicClient = useMemo(() => {
     return new RpcProvider({
-      nodeUrl: targetNetwork.rpcUrls.public.http[0],
+      nodeUrl: targetNetwork.rpcUrls.public.http[0]
     });
   }, [targetNetwork.rpcUrls.public.http]);
 
@@ -54,7 +54,7 @@ export const useDataTransaction = (blockNumber: number) => {
         return null;
       }
     },
-    [publicClient],
+    [publicClient]
   );
 
   const calculateAverageFee = useCallback(
@@ -86,7 +86,7 @@ export const useDataTransaction = (blockNumber: number) => {
         return 0;
       }
     },
-    [publicClient],
+    [publicClient]
   );
 
   const fetchBlockData = useCallback(async () => {
@@ -128,7 +128,7 @@ export const useDataTransaction = (blockNumber: number) => {
         gasprice: currentBlock.l1_gas_price.price_in_wei,
         gaspricefri: currentBlock.l1_gas_price.price_in_fri,
         timeDiff: timeDiff !== null ? timeDiff : null,
-        averageFeeUSD: averageFeeUSD.toFixed(4),
+        averageFeeUSD: averageFeeUSD.toFixed(4)
       };
 
       setBlockData(data);
@@ -153,6 +153,6 @@ export const useDataTransaction = (blockNumber: number) => {
     error,
     refetch: fetchBlockData,
     isEnabled,
-    toggleFetching,
+    toggleFetching
   };
 };

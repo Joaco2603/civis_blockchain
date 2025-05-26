@@ -1,32 +1,60 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle, XCircle, Search, Plus, Download, Upload, Filter, UserCheck, Shield } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import {
+  CheckCircle,
+  XCircle,
+  Search,
+  Plus,
+  Download,
+  Upload,
+  Filter,
+  UserCheck,
+  Shield
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import Link from "next/link"
+  DialogTitle
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import Link from "next/link";
 
 export function DIDManagement() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab] = useState("all")
-  const [isAssignRoleDialogOpen, setIsAssignRoleDialogOpen] = useState(false)
-  const [selectedDID, setSelectedDID] = useState<string | null>(null)
-  const [selectedRole, setSelectedRole] = useState<string>("user")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("all");
+  const [isAssignRoleDialogOpen, setIsAssignRoleDialogOpen] = useState(false);
+  const [selectedDID, setSelectedDID] = useState<string | null>(null);
+  const [selectedRole, setSelectedRole] = useState<string>("user");
 
   // Mock DID data
   const dids = [
@@ -37,7 +65,7 @@ export function DIDManagement() {
       status: "verified",
       role: "admin",
       createdAt: "15 May 2024",
-      lastActive: "18 May 2024",
+      lastActive: "18 May 2024"
     },
     {
       id: 2,
@@ -46,7 +74,7 @@ export function DIDManagement() {
       status: "pending",
       role: null,
       createdAt: "16 May 2024",
-      lastActive: "-",
+      lastActive: "-"
     },
     {
       id: 3,
@@ -55,7 +83,7 @@ export function DIDManagement() {
       status: "verified",
       role: "user",
       createdAt: "14 May 2024",
-      lastActive: "17 May 2024",
+      lastActive: "17 May 2024"
     },
     {
       id: 4,
@@ -64,7 +92,7 @@ export function DIDManagement() {
       status: "verified",
       role: "user",
       createdAt: "12 May 2024",
-      lastActive: "18 May 2024",
+      lastActive: "18 May 2024"
     },
     {
       id: 5,
@@ -73,7 +101,7 @@ export function DIDManagement() {
       status: "rejected",
       role: null,
       createdAt: "10 May 2024",
-      lastActive: "-",
+      lastActive: "-"
     },
     {
       id: 6,
@@ -82,96 +110,114 @@ export function DIDManagement() {
       status: "pending",
       role: null,
       createdAt: "17 May 2024",
-      lastActive: "-",
-    },
-  ]
+      lastActive: "-"
+    }
+  ];
 
   // Filter DIDs based on search term and active tab
   const filteredDIDs = dids.filter((did) => {
     const matchesSearch =
       did.did.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      did.address.toLowerCase().includes(searchTerm.toLowerCase())
+      did.address.toLowerCase().includes(searchTerm.toLowerCase());
 
-    if (activeTab === "all") return matchesSearch
-    if (activeTab === "verified") return matchesSearch && did.status === "verified"
-    if (activeTab === "pending") return matchesSearch && did.status === "pending"
-    if (activeTab === "rejected") return matchesSearch && did.status === "rejected"
+    if (activeTab === "all") return matchesSearch;
+    if (activeTab === "verified")
+      return matchesSearch && did.status === "verified";
+    if (activeTab === "pending")
+      return matchesSearch && did.status === "pending";
+    if (activeTab === "rejected")
+      return matchesSearch && did.status === "rejected";
 
-    return matchesSearch
-  })
+    return matchesSearch;
+  });
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "verified":
         return (
-          <Badge variant="outline" className="bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+          <Badge
+            variant="outline"
+            className="bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+          >
             <CheckCircle className="h-3 w-3 mr-1" />
             Verificado
           </Badge>
-        )
+        );
       case "pending":
         return (
-          <Badge variant="outline" className="bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300">
+          <Badge
+            variant="outline"
+            className="bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+          >
             Pendiente
           </Badge>
-        )
+        );
       case "rejected":
         return (
-          <Badge variant="outline" className="bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300">
+          <Badge
+            variant="outline"
+            className="bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300"
+          >
             <XCircle className="h-3 w-3 mr-1" />
             Rechazado
           </Badge>
-        )
+        );
       default:
-        return <Badge variant="outline">Desconocido</Badge>
+        return <Badge variant="outline">Desconocido</Badge>;
     }
-  }
+  };
 
   const getRoleBadge = (role: string | null) => {
-    if (!role) return null
+    if (!role) return null;
 
     switch (role) {
       case "admin":
         return (
-          <Badge variant="outline" className="bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+          <Badge
+            variant="outline"
+            className="bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300"
+          >
             <Shield className="h-3 w-3 mr-1" />
             Admin
           </Badge>
-        )
+        );
       case "user":
         return (
-          <Badge variant="outline" className="bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+          <Badge
+            variant="outline"
+            className="bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+          >
             Usuario
           </Badge>
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   const handleApprove = (id: number) => {
     // En una implementación real, aquí se aprobaría el DID en la blockchain
-    console.log("Aprobando DID:", id)
+    console.log("Aprobando DID:", id);
     // Abrir diálogo para asignar rol
-    const did = dids.find((d) => d.id === id)
+    const did = dids.find((d) => d.id === id);
     if (did) {
-      setSelectedDID(did.did)
-      setIsAssignRoleDialogOpen(true)
+      setSelectedDID(did.did);
+      setIsAssignRoleDialogOpen(true);
     }
-  }
+  };
 
   const handleReject = (id: number) => {
     // En una implementación real, aquí se rechazaría el DID en la blockchain
-    console.log("Rechazando DID:", id)
-  }
+    console.log("Rechazando DID:", id);
+  };
 
   const handleAssignRole = () => {
     // En una implementación real, aquí se asignaría el rol al DID en la blockchain
-    console.log("Asignando rol:", selectedRole, "al DID:", selectedDID)
-    setIsAssignRoleDialogOpen(false)
-    setSelectedDID(null)
-    setSelectedRole("user")
-  }
+    console.log("Asignando rol:", selectedRole, "al DID:", selectedDID);
+    setIsAssignRoleDialogOpen(false);
+    setSelectedDID(null);
+    setSelectedRole("user");
+  };
 
   return (
     <Card>
@@ -229,7 +275,11 @@ export function DIDManagement() {
             </div>
           </div>
 
-          <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
+          <Tabs
+            defaultValue="all"
+            value={activeTab}
+            onValueChange={setActiveTab}
+          >
             <TabsList className="grid grid-cols-4 w-full">
               <TabsTrigger value="all">Todos</TabsTrigger>
               <TabsTrigger value="verified">Verificados</TabsTrigger>
@@ -254,17 +304,26 @@ export function DIDManagement() {
                   <TableBody>
                     {filteredDIDs.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={7} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={7}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No se encontraron DIDs
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredDIDs.map((did) => (
                         <TableRow key={did.id}>
-                          <TableCell className="font-mono text-xs">{did.did}</TableCell>
-                          <TableCell className="font-mono text-xs">{did.address}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.did}
+                          </TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.address}
+                          </TableCell>
                           <TableCell>{getStatusBadge(did.status)}</TableCell>
-                          <TableCell>{did.role ? getRoleBadge(did.role) : "-"}</TableCell>
+                          <TableCell>
+                            {did.role ? getRoleBadge(did.role) : "-"}
+                          </TableCell>
                           <TableCell>{did.createdAt}</TableCell>
                           <TableCell>{did.lastActive}</TableCell>
                           <TableCell className="text-right">
@@ -297,9 +356,9 @@ export function DIDManagement() {
                                   size="sm"
                                   className="h-7 text-xs"
                                   onClick={() => {
-                                    setSelectedDID(did.did)
-                                    setSelectedRole(did.role || "user")
-                                    setIsAssignRoleDialogOpen(true)
+                                    setSelectedDID(did.did);
+                                    setSelectedRole(did.role || "user");
+                                    setIsAssignRoleDialogOpen(true);
                                   }}
                                 >
                                   <UserCheck className="h-3.5 w-3.5 mr-1" />
@@ -307,7 +366,11 @@ export function DIDManagement() {
                                 </Button>
                               )}
                               {did.status === "rejected" && (
-                                <Button variant="ghost" size="sm" className="h-7 text-xs">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-7 text-xs"
+                                >
                                   Revisar
                                 </Button>
                               )}
@@ -340,17 +403,26 @@ export function DIDManagement() {
                   <TableBody>
                     {filteredDIDs.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={7} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={7}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No se encontraron DIDs verificados
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredDIDs.map((did) => (
                         <TableRow key={did.id}>
-                          <TableCell className="font-mono text-xs">{did.did}</TableCell>
-                          <TableCell className="font-mono text-xs">{did.address}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.did}
+                          </TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.address}
+                          </TableCell>
                           <TableCell>{getStatusBadge(did.status)}</TableCell>
-                          <TableCell>{did.role ? getRoleBadge(did.role) : "-"}</TableCell>
+                          <TableCell>
+                            {did.role ? getRoleBadge(did.role) : "-"}
+                          </TableCell>
                           <TableCell>{did.createdAt}</TableCell>
                           <TableCell>{did.lastActive}</TableCell>
                           <TableCell className="text-right">
@@ -359,9 +431,9 @@ export function DIDManagement() {
                               size="sm"
                               className="h-7 text-xs"
                               onClick={() => {
-                                setSelectedDID(did.did)
-                                setSelectedRole(did.role || "user")
-                                setIsAssignRoleDialogOpen(true)
+                                setSelectedDID(did.did);
+                                setSelectedRole(did.role || "user");
+                                setIsAssignRoleDialogOpen(true);
                               }}
                             >
                               <UserCheck className="h-3.5 w-3.5 mr-1" />
@@ -392,15 +464,22 @@ export function DIDManagement() {
                   <TableBody>
                     {filteredDIDs.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={5}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No hay DIDs pendientes
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredDIDs.map((did) => (
                         <TableRow key={did.id}>
-                          <TableCell className="font-mono text-xs">{did.did}</TableCell>
-                          <TableCell className="font-mono text-xs">{did.address}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.did}
+                          </TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.address}
+                          </TableCell>
                           <TableCell>{getStatusBadge(did.status)}</TableCell>
                           <TableCell>{did.createdAt}</TableCell>
                           <TableCell className="text-right">
@@ -449,19 +528,30 @@ export function DIDManagement() {
                   <TableBody>
                     {filteredDIDs.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={5}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No hay DIDs rechazados
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredDIDs.map((did) => (
                         <TableRow key={did.id}>
-                          <TableCell className="font-mono text-xs">{did.did}</TableCell>
-                          <TableCell className="font-mono text-xs">{did.address}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.did}
+                          </TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {did.address}
+                          </TableCell>
                           <TableCell>{getStatusBadge(did.status)}</TableCell>
                           <TableCell>{did.createdAt}</TableCell>
                           <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" className="h-7 text-xs">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 text-xs"
+                            >
                               Revisar
                             </Button>
                           </TableCell>
@@ -476,12 +566,16 @@ export function DIDManagement() {
         </div>
 
         {/* Dialog para asignar rol */}
-        <Dialog open={isAssignRoleDialogOpen} onOpenChange={setIsAssignRoleDialogOpen}>
+        <Dialog
+          open={isAssignRoleDialogOpen}
+          onOpenChange={setIsAssignRoleDialogOpen}
+        >
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Asignar Rol</DialogTitle>
               <DialogDescription>
-                Asigna un rol al DID seleccionado. Este rol determinará los permisos del usuario en la plataforma.
+                Asigna un rol al DID seleccionado. Este rol determinará los
+                permisos del usuario en la plataforma.
               </DialogDescription>
             </DialogHeader>
             <div className="py-4">
@@ -510,7 +604,10 @@ export function DIDManagement() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAssignRoleDialogOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsAssignRoleDialogOpen(false)}
+              >
                 Cancelar
               </Button>
               <Button onClick={handleAssignRole}>Guardar</Button>
@@ -519,5 +616,5 @@ export function DIDManagement() {
         </Dialog>
       </CardContent>
     </Card>
-  )
+  );
 }

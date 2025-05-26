@@ -14,18 +14,18 @@ export const BlockExplorer = () => {
     {
       name: "Starkscan",
       img: "/sn-symbol-gradient.png",
-      link: "https://starkscan.co/",
+      link: "https://starkscan.co/"
     },
     {
       name: "Voyager",
       img: "/voyager-icon.svg",
-      link: "https://voyager.online/",
+      link: "https://voyager.online/"
     },
     {
       name: "Stark Compass",
       img: "/starkcompass-icon.svg",
-      link: "https://starkcompass.com/",
-    },
+      link: "https://starkcompass.com/"
+    }
   ];
 
   const { resolvedTheme } = useTheme();

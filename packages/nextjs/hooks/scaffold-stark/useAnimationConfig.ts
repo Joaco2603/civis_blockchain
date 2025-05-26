@@ -15,6 +15,6 @@ export function useAnimationConfig(data: any) {
   }, [data, prevData]);
 
   return {
-    showAnimation,
+    showAnimation
   };
 }

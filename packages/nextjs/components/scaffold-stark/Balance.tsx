@@ -20,12 +20,12 @@ export const Balance = ({ address, className = "", usdMode }: BalanceProps) => {
     formatted: strkFormatted,
     isLoading: strkIsLoading,
     isError: strkIsError,
-    symbol: strkSymbol,
+    symbol: strkSymbol
   } = useScaffoldStrkBalance({
-    address,
+    address
   });
   const [displayUsdMode, setDisplayUsdMode] = useState(
-    strkPrice > 0 ? Boolean(usdMode) : false,
+    strkPrice > 0 ? Boolean(usdMode) : false
   );
 
   const toggleBalanceMode = () => {
@@ -71,7 +71,7 @@ export const Balance = ({ address, className = "", usdMode }: BalanceProps) => {
               <span>
                 {strkBalanceInUsd.toLocaleString("en-US", {
                   minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
+                  maximumFractionDigits: 2
                 })}
               </span>
             </div>

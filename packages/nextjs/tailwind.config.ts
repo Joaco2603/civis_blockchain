@@ -4,7 +4,7 @@ const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   daisyui: {
     themes: [
@@ -26,10 +26,10 @@ const config: Config = {
 
           warning: "#00ff00",
 
-          error: "#ff0000",
-        },
-      },
-    ],
+          error: "#ff0000"
+        }
+      }
+    ]
   },
   theme: {
     extend: {
@@ -41,31 +41,31 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "hsl(var(--primary-foreground))"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          foreground: "hsl(var(--secondary-foreground))"
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          foreground: "hsl(var(--destructive-foreground))"
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          foreground: "hsl(var(--muted-foreground))"
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          foreground: "hsl(var(--accent-foreground))"
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          foreground: "hsl(var(--popover-foreground))"
         },
         card: {
           DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          foreground: "hsl(var(--card-foreground))"
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar))",
@@ -75,31 +75,31 @@ const config: Config = {
           "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
           accent: "hsl(var(--sidebar-accent))",
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+          ring: "hsl(var(--sidebar-ring))"
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 4px)"
       },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "var(--radix-accordion-content-height)" }
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
+          to: { height: "0" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-    },
+        "accordion-up": "accordion-up 0.2s ease-out"
+      }
+    }
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui")]
 };
 export default config;
 /** @type {import('tailwindcss').Config} */
@@ -107,7 +107,7 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./utils/**/*.{js,ts,jsx,tsx}",
+    "./utils/**/*.{js,ts,jsx,tsx}"
   ],
   plugins: [require("daisyui")],
   darkMode: ["class"],
@@ -134,63 +134,63 @@ module.exports = {
           error: "#FF8863",
           ".bg-gradient-modal": {
             "background-image":
-              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)",
+              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)"
           },
           ".bg-modal": {
             background:
-              "linear-gradient(270deg, #ece9fb -17.42%, #e3f4fd 109.05%)",
+              "linear-gradient(270deg, #ece9fb -17.42%, #e3f4fd 109.05%)"
           },
           ".modal-border": {
-            border: "1px solid #5c4fe5",
+            border: "1px solid #5c4fe5"
           },
           ".bg-gradient-nav": {
-            background: "#000000",
+            background: "#000000"
           },
           ".bg-main": {
-            background: "#FFFFFF",
+            background: "#FFFFFF"
           },
           ".bg-underline": {
             background:
-              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)",
+              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)"
           },
           ".bg-container": {
-            background: "transparent",
+            background: "transparent"
           },
           ".bg-btn-wallet": {
             "background-image":
-              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)",
+              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)"
           },
           ".bg-input": {
-            background: "rgba(0, 0, 0, 0.07)",
+            background: "rgba(0, 0, 0, 0.07)"
           },
           ".bg-component": {
-            background: "rgba(255, 255, 255, 0.55)",
+            background: "rgba(255, 255, 255, 0.55)"
           },
           ".bg-function": {
             background:
-              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)",
+              "linear-gradient(270deg, #A7ECFF -17.42%, #E8B6FF 109.05%)"
           },
           ".text-function": {
-            color: "#3C1DFF",
+            color: "#3C1DFF"
           },
           ".text-network": {
-            color: "#7800FF",
+            color: "#7800FF"
           },
           "--rounded-btn": "9999rem",
 
           ".tooltip": {
-            "--tooltip-tail": "6px",
+            "--tooltip-tail": "6px"
           },
           ".link": {
-            textUnderlineOffset: "2px",
+            textUnderlineOffset: "2px"
           },
           ".link:hover": {
-            opacity: "80%",
+            opacity: "80%"
           },
           ".contract-content": {
-            background: "white",
-          },
-        },
+            background: "white"
+          }
+        }
       },
       {
         dark: {
@@ -211,75 +211,75 @@ module.exports = {
           warning: "#FFCF72",
           error: "#FF8863",
           ".bg-gradient-modal": {
-            background: "#385183",
+            background: "#385183"
           },
           ".bg-modal": {
-            background: "linear-gradient(90deg, #2B2243 0%, #253751 100%)",
+            background: "linear-gradient(90deg, #2B2243 0%, #253751 100%)"
           },
           ".modal-border": {
-            border: "1px solid #4f4ab7",
+            border: "1px solid #4f4ab7"
           },
           ".bg-gradient-nav": {
             "background-image":
-              "var(--gradient, linear-gradient(90deg, #42D2F1 0%, #B248DD 100%))",
+              "var(--gradient, linear-gradient(90deg, #42D2F1 0%, #B248DD 100%))"
           },
           ".bg-main": {
-            background: "#141A31",
+            background: "#141A31"
           },
           ".bg-underline": {
-            background: "#5368B4",
+            background: "#5368B4"
           },
           ".bg-container": {
-            background: "#141a30",
+            background: "#141a30"
           },
           ".bg-btn-wallet": {
             "background-image":
-              "linear-gradient(180deg, #3457D1 0%, #8A45FC 100%)",
+              "linear-gradient(180deg, #3457D1 0%, #8A45FC 100%)"
           },
           ".bg-input": {
-            background: "rgba(255, 255, 255, 0.07)",
+            background: "rgba(255, 255, 255, 0.07)"
           },
           ".bg-component": {
             background:
-              "linear-gradient(113deg,rgba(43, 34, 67, 0.6) 20.48%,rgba(37, 55, 81, 0.6) 99.67%)",
+              "linear-gradient(113deg,rgba(43, 34, 67, 0.6) 20.48%,rgba(37, 55, 81, 0.6) 99.67%)"
           },
           ".bg-function": {
-            background: "rgba(139, 69, 253, 0.37)",
+            background: "rgba(139, 69, 253, 0.37)"
           },
           ".text-function": {
-            color: "#1DD6FF",
+            color: "#1DD6FF"
           },
           ".text-network": {
-            color: "#D0A6FF",
+            color: "#D0A6FF"
           },
 
           "--rounded-btn": "9999rem",
 
           ".tooltip": {
             "--tooltip-tail": "6px",
-            "--tooltip-color": "oklch(var(--p))",
+            "--tooltip-color": "oklch(var(--p))"
           },
           ".link": {
-            textUnderlineOffset: "2px",
+            textUnderlineOffset: "2px"
           },
           ".link:hover": {
-            opacity: "80%",
+            opacity: "80%"
           },
           ".contract-content": {
             background:
-              "linear-gradient(113.34deg, rgba(43, 34, 67, 0.6) 20.48%, rgba(37, 55, 81, 0.6) 99.67%)",
-          },
-        },
-      },
-    ],
+              "linear-gradient(113.34deg, rgba(43, 34, 67, 0.6) 20.48%, rgba(37, 55, 81, 0.6) 99.67%)"
+          }
+        }
+      }
+    ]
   },
   theme: {
     extend: {
       boxShadow: {
-        center: "0 0 12px -2px rgb(0 0 0 / 0.05)",
+        center: "0 0 12px -2px rgb(0 0 0 / 0.05)"
       },
       animation: {
-        "pulse-fast": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "pulse-fast": "pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite"
       },
       colors: {
         border: "hsl(var(--border))",
@@ -289,39 +289,38 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "hsl(var(--primary-foreground))"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          foreground: "hsl(var(--secondary-foreground))"
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          foreground: "hsl(var(--destructive-foreground))"
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          foreground: "hsl(var(--muted-foreground))"
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          foreground: "hsl(var(--accent-foreground))"
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          foreground: "hsl(var(--popover-foreground))"
         },
         card: {
           DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+          foreground: "hsl(var(--card-foreground))"
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-
-    },
-  },
+        sm: "calc(var(--radius) - 4px)"
+      }
+    }
+  }
 };

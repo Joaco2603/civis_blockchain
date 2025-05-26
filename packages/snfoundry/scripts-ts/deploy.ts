@@ -2,7 +2,7 @@ import {
   deployContract,
   executeDeployCalls,
   exportDeployments,
-  deployer,
+  deployer
 } from "./deploy-contract";
 import { green } from "./helpers/colorize-log";
 
@@ -43,10 +43,10 @@ import { green } from "./helpers/colorize-log";
  */
 const deployScript = async (): Promise<void> => {
   await deployContract({
-    contract: "YourContract",
+    contract: "VotingContract",
     constructorArgs: {
-      owner: deployer.address,
-    },
+      owner: deployer.address
+    }
   });
 };
 

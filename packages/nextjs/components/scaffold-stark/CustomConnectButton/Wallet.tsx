@@ -6,13 +6,13 @@ import { useTheme } from "next-themes";
 const Wallet = ({
   handleConnectWallet,
   connector,
-  loader,
+  loader
 }: {
   connector: Connector;
   loader: ({ src }: { src: string }) => string;
   handleConnectWallet: (
     e: React.MouseEvent<HTMLButtonElement>,
-    connector: Connector,
+    connector: Connector
   ) => void;
 }) => {
   const [clicked, setClicked] = useState(false);

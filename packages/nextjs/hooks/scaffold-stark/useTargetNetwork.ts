@@ -12,12 +12,12 @@ export function useTargetNetwork(): { targetNetwork: ChainWithAttributes } {
   const { chainId } = useAccount();
   const targetNetwork = useGlobalState(({ targetNetwork }) => targetNetwork);
   const setTargetNetwork = useGlobalState(
-    ({ setTargetNetwork }) => setTargetNetwork,
+    ({ setTargetNetwork }) => setTargetNetwork
   );
 
   useEffect(() => {
     const newSelectedNetwork = scaffoldConfig.targetNetworks.find(
-      (targetNetwork) => targetNetwork.id === chainId,
+      (targetNetwork) => targetNetwork.id === chainId
     );
     if (newSelectedNetwork && newSelectedNetwork.id !== targetNetwork.id) {
       setTargetNetwork(newSelectedNetwork);
@@ -26,8 +26,8 @@ export function useTargetNetwork(): { targetNetwork: ChainWithAttributes } {
 
   return {
     targetNetwork: {
-      ...targetNetwork,
+      ...targetNetwork
       //   ...NETWORKS_EXTRA_DATA[targetNetwork.id],
-    },
+    }
   };
 }

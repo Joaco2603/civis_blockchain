@@ -1,5 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { EyeOff, FileCheck, ShieldCheck } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "~~/components/ui/card";
+import { EyeOff, FileCheck, ShieldCheck } from "lucide-react";
 
 export function VotingPrivacyInfo() {
   return (
@@ -39,11 +44,12 @@ export function VotingPrivacyInfo() {
           <div className="text-sm">
             <p className="font-medium">Verificable</p>
             <p className="text-gray-500 dark:text-gray-400">
-              Puedes verificar que tu voto fue contabilizado sin revelar tu elección.
+              Puedes verificar que tu voto fue contabilizado sin revelar tu
+              elección.
             </p>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

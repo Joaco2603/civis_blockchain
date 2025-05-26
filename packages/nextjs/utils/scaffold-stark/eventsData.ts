@@ -2,7 +2,7 @@ import { getChecksumAddress } from "starknet";
 
 export const parseEventData = (
   args: Record<string, any>,
-  types: { name: string; type: string; kind: string }[],
+  types: { name: string; type: string; kind: string }[]
 ) => {
   const convertToHex = (value: bigint): string => {
     return getChecksumAddress(`0x${value.toString(16)}`);
@@ -31,7 +31,7 @@ export const parseEventData = (
         .map((type, index) =>
           type.trim() === "core::starknet::contract_address::ContractAddress"
             ? index
-            : -1,
+            : -1
         )
         .filter((index) => index !== -1);
       const newTuple: Record<number, any> = {};

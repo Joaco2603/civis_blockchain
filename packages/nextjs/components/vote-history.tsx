@@ -1,19 +1,85 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Eye, Download, Filter } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "~~/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "~~/components/ui/table";
+import { Badge } from "~~/components/ui/badge";
+import { Button } from "~~/components/ui/button";
+import { Input } from "~~/components/ui/input";
+import { Search, Eye, Download, Filter } from "lucide-react";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "~~/components/ui/tabs";
+import { CONTRACT_ADDRESS } from "~~/utils/Constants";
+import { useContract } from "@starknet-react/core";
+import { useAccount } from "~~/hooks/useAccount";
+import ConnectModal from "./scaffold-stark/CustomConnectButton/ConnectModal";
+import { provider } from "starknet";
 
 export function VoteHistory() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("all");
+  const [votes2, setVotes] = useState<number | null>(null);
 
-  // Mock vote history data
+  const { contract } = useContract({
+    address: CONTRACT_ADDRESS,
+    // provider: provider,
+    abi: [
+      {
+        type: "impl",
+        name: "VotingABIImpl",
+        interface_name: "contracts::voting::VotingABI"
+      },
+      {
+        type: "interface",
+        name: "contracts::voting::VotingABI",
+        items: [
+          {
+            type: "function",
+            name: "get_my_vote",
+            inputs: [],
+            outputs: [{ type: "core::felt252" }],
+            state_mutability: "view"
+          }
+        ]
+      }
+    ]
+  });
+
+  useEffect(() => {
+    const fetchVotes = async () => {
+      if (!contract) return;
+
+      try {
+        const response = await contract.get_my_vote();
+        const voteCount = parseInt(response.toString());
+        setVotes(voteCount);
+      } catch (error) {
+        console.error("Error al obtener votos:", error);
+      }
+    };
+
+    fetchVotes();
+  }, []);
+
+  console.log("Votes2:", votes2);
+
+  //  Mock vote history data
   const votes = [
     {
       id: "vote-1",
@@ -21,7 +87,7 @@ export function VoteHistory() {
       date: "15 May 2024",
       txHash: "0x8f5b4...3e21",
       status: "confirmed",
-      type: "presidential",
+      type: "presidential"
     },
     {
       id: "vote-2",
@@ -29,7 +95,7 @@ export function VoteHistory() {
       date: "01 Jun 2024",
       txHash: "0x7a3d2...5f21",
       status: "confirmed",
-      type: "referendum",
+      type: "referendum"
     },
     {
       id: "vote-3",
@@ -37,7 +103,7 @@ export function VoteHistory() {
       date: "15 Nov 2023",
       txHash: "0x2e9f1...8c43",
       status: "confirmed",
-      type: "municipal",
+      type: "municipal"
     },
     {
       id: "vote-4",
@@ -45,38 +111,48 @@ export function VoteHistory() {
       date: "30 Sep 2023",
       txHash: "0x1c8d3...9a76",
       status: "confirmed",
-      type: "consultation",
-    },
-  ]
+      type: "consultation"
+    }
+  ];
+
+  if (provider === undefined) {
+    return <ConnectModal />;
+  }
 
   // Filter votes based on search term and active tab
   const filteredVotes = votes.filter((vote) => {
     const matchesSearch =
       vote.election.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      vote.txHash.toLowerCase().includes(searchTerm.toLowerCase())
+      vote.txHash.toLowerCase().includes(searchTerm.toLowerCase());
 
-    if (activeTab === "all") return matchesSearch
-    return matchesSearch && vote.type === activeTab
-  })
+    if (activeTab === "all") return matchesSearch;
+    return matchesSearch && vote.type === activeTab;
+  });
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "confirmed":
         return (
-          <Badge variant="outline" className="bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+          <Badge
+            variant="outline"
+            className="bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+          >
             Confirmado
           </Badge>
-        )
+        );
       case "pending":
         return (
-          <Badge variant="outline" className="bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300">
+          <Badge
+            variant="outline"
+            className="bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+          >
             Pendiente
           </Badge>
-        )
+        );
       default:
-        return <Badge variant="outline">Desconocido</Badge>
+        return <Badge variant="outline">Desconocido</Badge>;
     }
-  }
+  };
 
   return (
     <Card>
@@ -108,7 +184,11 @@ export function VoteHistory() {
             </div>
           </div>
 
-          <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
+          <Tabs
+            defaultValue="all"
+            value={activeTab}
+            onValueChange={setActiveTab}
+          >
             <TabsList className="grid grid-cols-4 w-full">
               <TabsTrigger value="all">Todos</TabsTrigger>
               <TabsTrigger value="presidential">Presidenciales</TabsTrigger>
@@ -131,19 +211,30 @@ export function VoteHistory() {
                   <TableBody>
                     {filteredVotes.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={5}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No se encontraron votos
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredVotes.map((vote) => (
                         <TableRow key={vote.id}>
-                          <TableCell className="font-medium">{vote.election}</TableCell>
+                          <TableCell className="font-medium">
+                            {vote.election}
+                          </TableCell>
                           <TableCell>{vote.date}</TableCell>
-                          <TableCell className="font-mono text-xs">{vote.txHash}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {vote.txHash}
+                          </TableCell>
                           <TableCell>{getStatusBadge(vote.status)}</TableCell>
                           <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" className="h-7 text-xs">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 text-xs"
+                            >
                               <Eye className="h-3.5 w-3.5 mr-1" />
                               Verificar
                             </Button>
@@ -172,19 +263,30 @@ export function VoteHistory() {
                   <TableBody>
                     {filteredVotes.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={5}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No se encontraron votos presidenciales
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredVotes.map((vote) => (
                         <TableRow key={vote.id}>
-                          <TableCell className="font-medium">{vote.election}</TableCell>
+                          <TableCell className="font-medium">
+                            {vote.election}
+                          </TableCell>
                           <TableCell>{vote.date}</TableCell>
-                          <TableCell className="font-mono text-xs">{vote.txHash}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {vote.txHash}
+                          </TableCell>
                           <TableCell>{getStatusBadge(vote.status)}</TableCell>
                           <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" className="h-7 text-xs">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 text-xs"
+                            >
                               <Eye className="h-3.5 w-3.5 mr-1" />
                               Verificar
                             </Button>
@@ -212,19 +314,30 @@ export function VoteHistory() {
                   <TableBody>
                     {filteredVotes.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={5}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No se encontraron votos en referéndums
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredVotes.map((vote) => (
                         <TableRow key={vote.id}>
-                          <TableCell className="font-medium">{vote.election}</TableCell>
+                          <TableCell className="font-medium">
+                            {vote.election}
+                          </TableCell>
                           <TableCell>{vote.date}</TableCell>
-                          <TableCell className="font-mono text-xs">{vote.txHash}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {vote.txHash}
+                          </TableCell>
                           <TableCell>{getStatusBadge(vote.status)}</TableCell>
                           <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" className="h-7 text-xs">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 text-xs"
+                            >
                               <Eye className="h-3.5 w-3.5 mr-1" />
                               Verificar
                             </Button>
@@ -252,19 +365,30 @@ export function VoteHistory() {
                   <TableBody>
                     {filteredVotes.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center py-6 text-gray-500 dark:text-gray-400">
+                        <TableCell
+                          colSpan={5}
+                          className="text-center py-6 text-gray-500 dark:text-gray-400"
+                        >
                           No se encontraron votos municipales
                         </TableCell>
                       </TableRow>
                     ) : (
                       filteredVotes.map((vote) => (
                         <TableRow key={vote.id}>
-                          <TableCell className="font-medium">{vote.election}</TableCell>
+                          <TableCell className="font-medium">
+                            {vote.election}
+                          </TableCell>
                           <TableCell>{vote.date}</TableCell>
-                          <TableCell className="font-mono text-xs">{vote.txHash}</TableCell>
+                          <TableCell className="font-mono text-xs">
+                            {vote.txHash}
+                          </TableCell>
                           <TableCell>{getStatusBadge(vote.status)}</TableCell>
                           <TableCell className="text-right">
-                            <Button variant="ghost" size="sm" className="h-7 text-xs">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 text-xs"
+                            >
                               <Eye className="h-3.5 w-3.5 mr-1" />
                               Verificar
                             </Button>
@@ -280,5 +404,5 @@ export function VoteHistory() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

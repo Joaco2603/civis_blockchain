@@ -65,23 +65,23 @@ const deployerMainnet =
 const feeTokenOptions = {
   devnet: [{ name: "strk", address: STRK_TOKEN_ADDRESS_DEVNET }],
   mainnet: [{ name: "strk", address: STRK_TOKEN_ADDRESS }],
-  sepolia: [{ name: "strk", address: STRK_TOKEN_ADDRESS }],
+  sepolia: [{ name: "strk", address: STRK_TOKEN_ADDRESS }]
 };
 
 export const networks: Networks = {
   devnet: {
     provider: providerDevnet,
     deployer: deployerDevnet,
-    feeToken: feeTokenOptions.devnet,
+    feeToken: feeTokenOptions.devnet
   },
   sepolia: {
     provider: providerSepolia,
     deployer: deployerSepolia,
-    feeToken: feeTokenOptions.sepolia,
+    feeToken: feeTokenOptions.sepolia
   },
   mainnet: {
     provider: providerMainnet,
     deployer: deployerMainnet,
-    feeToken: feeTokenOptions.mainnet,
-  },
+    feeToken: feeTokenOptions.mainnet
+  }
 };

@@ -7,7 +7,7 @@ import { Address as AddressType } from "@starknet-react/chains";
 import { devnet } from "@starknet-react/chains";
 import {
   CheckCircleIcon,
-  DocumentDuplicateIcon,
+  DocumentDuplicateIcon
 } from "@heroicons/react/24/outline";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { getBlockExplorerClasshashLink } from "~~/utils/scaffold-stark";
@@ -24,14 +24,14 @@ type ClasshashProps = {
 export const ClassHash = ({
   classHash,
   format,
-  size = "xs",
+  size = "xs"
 }: ClasshashProps) => {
   const [addressCopied, setAddressCopied] = useState(false);
   const { targetNetwork } = useTargetNetwork();
 
   const blockExplorerAddressLink = getBlockExplorerClasshashLink(
     targetNetwork,
-    classHash,
+    classHash
   );
 
   let displayClasshash = classHash?.slice(0, 6) + "..." + classHash?.slice(-4);

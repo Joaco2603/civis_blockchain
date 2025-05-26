@@ -7,12 +7,12 @@ import { replacer } from "~~/utils/scaffold-stark/common";
 import {
   Abi,
   ExtractAbiEvent,
-  ExtractAbiEventNames,
+  ExtractAbiEventNames
 } from "abi-wan-kanabi/dist/kanabi";
 import {
   ContractAbi,
   ContractName,
-  UseScaffoldEventHistoryConfig,
+  UseScaffoldEventHistoryConfig
 } from "~~/utils/scaffold-stark/contract";
 import { devnet } from "@starknet-react/chains";
 import { useProvider } from "@starknet-react/core";
@@ -40,7 +40,7 @@ export const useScaffoldEventHistory = <
   TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
   TBlockData extends boolean = false,
   TTransactionData extends boolean = false,
-  TReceiptData extends boolean = false,
+  TReceiptData extends boolean = false
 >({
   contractName,
   eventName,
@@ -51,7 +51,7 @@ export const useScaffoldEventHistory = <
   receiptData,
   watch,
   format = true,
-  enabled = true,
+  enabled = true
 }: UseScaffoldEventHistoryConfig<
   TContractName,
   TEventName,
@@ -71,7 +71,7 @@ export const useScaffoldEventHistory = <
 
   const publicClient = useMemo(() => {
     return new RpcProvider({
-      nodeUrl: targetNetwork.rpcUrls.public.http[0],
+      nodeUrl: targetNetwork.rpcUrls.public.http[0]
     });
   }, [targetNetwork.rpcUrls.public.http]);
 
@@ -92,7 +92,7 @@ export const useScaffoldEventHistory = <
       }
 
       const event = (deployedContractData.abi as Abi).find(
-        (part) => part.type === "event" && part.name === eventName,
+        (part) => part.type === "event" && part.name === eventName
       ) as ExtractAbiEvent<ContractAbi<TContractName>, TEventName>;
 
       const blockNumber = (await publicClient.getBlockLatestAccepted())
@@ -103,11 +103,11 @@ export const useScaffoldEventHistory = <
         blockNumber >= fromBlockUpdated
       ) {
         let keys: string[][] = [
-          [hash.getSelectorFromName(event.name.split("::").slice(-1)[0])],
+          [hash.getSelectorFromName(event.name.split("::").slice(-1)[0])]
         ];
         if (filters) {
           keys = keys.concat(
-            composeEventFilterKeys(filters, event, deployedContractData.abi),
+            composeEventFilterKeys(filters, event, deployedContractData.abi)
           );
         }
         keys = keys.slice(0, MAX_KEYS_COUNT);
@@ -116,7 +116,7 @@ export const useScaffoldEventHistory = <
           keys,
           address: deployedContractData?.address,
           from_block: { block_number: Number(fromBlock || fromBlockUpdated) },
-          to_block: { block_number: blockNumber },
+          to_block: { block_number: blockNumber }
         });
         if (!rawEventResp) {
           return;
@@ -136,15 +136,15 @@ export const useScaffoldEventHistory = <
             transaction:
               transactionData && logs[i].transaction_hash !== null
                 ? await publicClient.getTransactionByHash(
-                    logs[i].transaction_hash,
+                    logs[i].transaction_hash
                   )
                 : null,
             receipt:
               receiptData && logs[i].transaction_hash !== null
                 ? await publicClient.getTransactionReceipt(
-                    logs[i].transaction_hash,
+                    logs[i].transaction_hash
                   )
-                : null,
+                : null
           });
         }
         if (events && typeof fromBlock === "undefined") {
@@ -184,7 +184,7 @@ export const useScaffoldEventHistory = <
     JSON.stringify(filters, replacer),
     blockData,
     transactionData,
-    receiptData,
+    receiptData
   ]);
 
   useEffect(() => {
@@ -204,7 +204,7 @@ export const useScaffoldEventHistory = <
       ? targetNetwork.id !== devnet.id
         ? scaffoldConfig.pollingInterval
         : 4_000
-      : null,
+      : null
   );
 
   const eventHistoryData = useMemo(() => {
@@ -215,7 +215,7 @@ export const useScaffoldEventHistory = <
           logs,
           starknetEvents.getAbiEvents(deployedContractData.abi),
           CallData.getAbiStruct(deployedContractData.abi),
-          CallData.getAbiEnum(deployedContractData.abi),
+          CallData.getAbiEnum(deployedContractData.abi)
         );
         const args = parsed.length ? parsed[0][eventName] : {};
         const { event: rawEvent, ...rest } = event;
@@ -223,7 +223,7 @@ export const useScaffoldEventHistory = <
           type: rawEvent.members,
           args,
           parsedArgs: format ? parseEventData(args, rawEvent.members) : null,
-          ...rest,
+          ...rest
         };
       });
     }
@@ -233,6 +233,6 @@ export const useScaffoldEventHistory = <
   return {
     data: eventHistoryData,
     isLoading: isLoading || deployedContractLoading,
-    error: error,
+    error: error
   };
 };

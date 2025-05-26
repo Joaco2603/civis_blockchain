@@ -1,27 +1,33 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { useWeb3 } from "@/components/web3-provider"
-import { DashboardHeader } from "@/components/dashboard-header"
-import { DashboardSidebar } from "@/components/dashboard-sidebar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { AdminStats } from "@/components/admin-stats"
-import { RecentActivity } from "@/components/recent-activity"
-import { PendingApprovals } from "@/components/pending-approvals"
-import { ElectionManagement } from "@/components/election-management"
-import { AdminWelcomeCard } from "@/components/admin-welcome-card"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useWeb3 } from "~~/app/store/web3-provider";
+import { DashboardHeader } from "~~/components/dashboard-header";
+import { DashboardSidebar } from "~~/components/dashboard-sidebar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "~~/components/ui/card";
+import { AdminStats } from "~~/components/admin-stats";
+import { RecentActivity } from "~~/components/recent-activity";
+import { PendingApprovals } from "~~/components/pending-approvals";
+import { ElectionManagement } from "~~/components/election-management";
+import { AdminWelcomeCard } from "~~/components/admin-welcome-card";
 
 export default function AdminDashboard() {
-  const router = useRouter()
-  const { role, isAuthenticated } = useWeb3()
+  const router = useRouter();
+  const { role, isAuthenticated } = useWeb3();
 
   // Redirect non-admin users to user dashboard
   useEffect(() => {
     if (isAuthenticated && role !== "admin") {
-      router.push("/dashboard")
+      router.push("/dashboard");
     }
-  }, [isAuthenticated, role, router])
+  }, [isAuthenticated, role, router]);
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -30,7 +36,9 @@ export default function AdminDashboard() {
         <DashboardHeader />
         <main className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Panel de Administración</h1>
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              Panel de Administración
+            </h1>
           </div>
 
           <AdminWelcomeCard className="mb-6" />
@@ -56,7 +64,9 @@ export default function AdminDashboard() {
             </Card>
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-base">Partidos Registrados</CardTitle>
+                <CardTitle className="text-base">
+                  Partidos Registrados
+                </CardTitle>
                 <CardDescription>Organizaciones políticas</CardDescription>
               </CardHeader>
               <CardContent>
@@ -86,5 +96,5 @@ export default function AdminDashboard() {
         </main>
       </div>
     </div>
-  )
+  );
 }

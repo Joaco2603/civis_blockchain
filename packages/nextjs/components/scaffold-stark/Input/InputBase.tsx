@@ -4,7 +4,7 @@ import {
   ReactNode,
   useCallback,
   useEffect,
-  useRef,
+  useRef
 } from "react";
 import { CommonInputProps } from "./utils";
 
@@ -16,7 +16,7 @@ type InputBaseProps<T> = CommonInputProps<T> & {
 };
 
 export const InputBase = <
-  T extends { toString: () => string } | undefined = string,
+  T extends { toString: () => string } | undefined = string
 >({
   name,
   value,
@@ -26,7 +26,7 @@ export const InputBase = <
   disabled,
   prefix,
   suffix,
-  reFocus,
+  reFocus
 }: InputBaseProps<T>) => {
   const inputReft = useRef<HTMLInputElement>(null);
 
@@ -41,7 +41,7 @@ export const InputBase = <
     (e: ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value as unknown as T);
     },
-    [onChange],
+    [onChange]
   );
 
   // Runs only when reFocus prop is passed, useful for setting the cursor
@@ -50,7 +50,7 @@ export const InputBase = <
     if (reFocus !== undefined) {
       e.currentTarget.setSelectionRange(
         e.currentTarget.value.length,
-        e.currentTarget.value.length,
+        e.currentTarget.value.length
       );
     }
   };

@@ -23,7 +23,7 @@ export default function DownloadContracts() {
     try {
       const [apiResponse, classHash] = await Promise.all([
         provider.getClassAt(address),
-        provider.getClassHashAt(address),
+        provider.getClassHashAt(address)
       ]);
 
       const contractData = {
@@ -31,13 +31,13 @@ export default function DownloadContracts() {
           [contractName]: {
             address,
             classHash,
-            abi: apiResponse.abi,
-          },
-        },
+            abi: apiResponse.abi
+          }
+        }
       };
       const mergedPredeployedContracts = deepMergeContracts(
         contractData,
-        configExternalContracts,
+        configExternalContracts
       );
 
       generateContractsFile(mergedPredeployedContracts);
@@ -55,15 +55,15 @@ export default function DownloadContracts() {
 
     const configExternalContracts = await prettier.format(
       `${generatedContractComment}\n\nconst configExternalContracts = ${JSON.stringify(
-        contractsData,
+        contractsData
       )} as const;\n\nexport default configExternalContracts;`,
       {
         parser: "typescript",
-        plugins: [parserTypescript, prettierPluginEstree],
-      },
+        plugins: [parserTypescript, prettierPluginEstree]
+      }
     );
     const blob = new Blob([configExternalContracts], {
-      type: "text/typescript",
+      type: "text/typescript"
     });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

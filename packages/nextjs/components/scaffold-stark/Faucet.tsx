@@ -7,7 +7,7 @@ import {
   Address,
   AddressInput,
   Balance,
-  StarkInput,
+  StarkInput
 } from "~~/components/scaffold-stark";
 import { useNetwork, useProvider } from "@starknet-react/core";
 import { mintStrk } from "~~/services/web3/faucet";
@@ -58,8 +58,8 @@ export const Faucet = () => {
             </p>
           </>,
           {
-            duration: 5000,
-          },
+            duration: 5000
+          }
         );
       }
     };

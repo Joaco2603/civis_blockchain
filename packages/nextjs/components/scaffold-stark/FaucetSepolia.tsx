@@ -19,13 +19,13 @@ export const FaucetSepolia = () => {
     {
       name: "Starknet Foundation",
       img: "/sn-symbol-gradient.png",
-      link: "https://starknet-faucet.vercel.app/",
+      link: "https://starknet-faucet.vercel.app/"
     },
     {
       name: "Blast",
       img: "/blast-icon-color.svg",
-      link: "https://blastapi.io/faucets/starknet-sepolia-strk",
-    },
+      link: "https://blastapi.io/faucets/starknet-sepolia-strk"
+    }
   ];
 
   const { provider: publicClient } = useProvider();
@@ -59,8 +59,8 @@ export const FaucetSepolia = () => {
             </p>
           </>,
           {
-            duration: 5000,
-          },
+            duration: 5000
+          }
         );
       }
     };

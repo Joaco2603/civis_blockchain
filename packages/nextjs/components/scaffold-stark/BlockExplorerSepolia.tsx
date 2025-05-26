@@ -14,18 +14,18 @@ export const BlockExplorerSepolia = () => {
     {
       name: "Starkscan",
       img: "/sn-symbol-gradient.png",
-      link: "https://sepolia.starkscan.co/",
+      link: "https://sepolia.starkscan.co/"
     },
     {
       name: "Voyager",
       img: "/voyager-icon.svg",
-      link: "https://sepolia.voyager.online/",
+      link: "https://sepolia.voyager.online/"
     },
     {
       name: "Stark Compass",
       img: "/starkcompass-icon.svg",
-      link: "https://starkcompass.com/sepolia/",
-    },
+      link: "https://starkcompass.com/sepolia/"
+    }
   ];
 
   const { resolvedTheme } = useTheme();

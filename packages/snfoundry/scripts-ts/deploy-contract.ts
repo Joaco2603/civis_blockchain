@@ -10,7 +10,7 @@ import {
   extractContractHashes,
   DeclareContractPayload,
   UniversalDetails,
-  constants,
+  constants
 } from "starknet";
 import { DeployContractParams, Network } from "./types";
 import { green, red, yellow } from "./helpers/colorize-log";
@@ -27,12 +27,12 @@ const argv = yargs(process.argv.slice(2))
   .option("network", {
     type: "string",
     description: "Specify the network",
-    demandOption: true,
+    demandOption: true
   })
   .option("reset", {
     type: "boolean",
     description: "Reset deployments (remove existing deployments)",
-    default: true,
+    default: true
   })
   .parseSync() as Arguments;
 
@@ -55,7 +55,7 @@ const declareIfNot_NotWait = async (
     try {
       const { transaction_hash } = await deployer.declare(payload, {
         ...options,
-        version: constants.TRANSACTION_VERSION.V3,
+        version: constants.TRANSACTION_VERSION.V3
       });
       if (networkName === "sepolia" || networkName === "mainnet") {
         console.log(
@@ -86,7 +86,7 @@ const declareIfNot_NotWait = async (
     }
   }
   return {
-    classHash: declareContractPayload.classHash,
+    classHash: declareContractPayload.classHash
   };
 };
 
@@ -102,7 +102,7 @@ const deployContract_NotWait = async (payload: {
     );
     deployCalls.push(...calls);
     return {
-      contractAddress: addresses[0],
+      contractAddress: addresses[0]
     };
   } catch (error) {
     console.error(red("Error building UDC call:"), error);
@@ -160,6 +160,9 @@ const deployContract = async (
   const { contract, constructorArgs, contractName, options } = params;
 
   try {
+    console.log("deployer")
+    console.log(deployer);
+    console.log(deployer.address)
     await deployer.getContractVersion(deployer.address);
   } catch (e) {
     if (e.toString().includes("Contract not found")) {
@@ -191,7 +194,7 @@ const deployContract = async (
     }
     return {
       classHash: "",
-      address: "",
+      address: ""
     };
   }
 
@@ -205,7 +208,7 @@ const deployContract = async (
     console.error(red("Error reading contract class file: "), error);
     return {
       classHash: "",
-      address: "",
+      address: ""
     };
   }
 
@@ -219,7 +222,7 @@ const deployContract = async (
   let { classHash } = await declareIfNot_NotWait(
     {
       contract: compiledContractSierra,
-      casm: compiledContractCasm,
+      casm: compiledContractCasm
     },
     options
   );
@@ -229,7 +232,7 @@ const deployContract = async (
   let { contractAddress } = await deployContract_NotWait({
     salt: randomSalt,
     classHash,
-    constructorCalldata,
+    constructorCalldata
   });
 
   console.log(green("Contract Deployed at "), contractAddress);
@@ -239,12 +242,12 @@ const deployContract = async (
   deployments[finalContractName] = {
     classHash: classHash,
     address: contractAddress,
-    contract: contract,
+    contract: contract
   };
 
   return {
     classHash: classHash,
-    address: contractAddress,
+    address: contractAddress
   };
 };
 
@@ -260,7 +263,7 @@ const executeDeployCalls = async (options?: UniversalDetails) => {
   try {
     let { transaction_hash } = await deployer.execute(deployCalls, {
       ...options,
-      version: constants.TRANSACTION_VERSION.V3,
+      version: constants.TRANSACTION_VERSION.V3
     });
     if (networkName === "sepolia" || networkName === "mainnet") {
       const receipt = await provider.waitForTransaction(transaction_hash);
@@ -326,5 +329,5 @@ export {
   loadExistingDeployments,
   exportDeployments,
   executeDeployCalls,
-  resetDeployments,
+  resetDeployments
 };

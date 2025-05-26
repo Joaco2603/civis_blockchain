@@ -5,14 +5,14 @@ import {
   ContractCodeStatus,
   ContractName,
   Contract,
-  contracts,
+  contracts
 } from "~~/utils/scaffold-stark/contract";
 import { BlockIdentifier } from "starknet";
 import { useProvider } from "@starknet-react/core";
 import { ContractClassHashCache } from "./ContractClassHashCache";
 
 export const useDeployedContractInfo = <TContractName extends ContractName>(
-  contractName: TContractName,
+  contractName: TContractName
 ) => {
   const isMounted = useIsMounted();
   const { targetNetwork } = useTargetNetwork();
@@ -20,7 +20,7 @@ export const useDeployedContractInfo = <TContractName extends ContractName>(
     contractName as ContractName
   ] as Contract<TContractName>;
   const [status, setStatus] = useState<ContractCodeStatus>(
-    ContractCodeStatus.LOADING,
+    ContractCodeStatus.LOADING
   );
   const { provider: publicClient } = useProvider();
 
@@ -35,7 +35,7 @@ export const useDeployedContractInfo = <TContractName extends ContractName>(
       const contractClassHash = await classHashCache.getClassHash(
         publicClient,
         deployedContract.address,
-        "pending" as BlockIdentifier,
+        "pending" as BlockIdentifier
       );
 
       if (!isMounted()) {
@@ -56,6 +56,6 @@ export const useDeployedContractInfo = <TContractName extends ContractName>(
     data: status === ContractCodeStatus.DEPLOYED ? deployedContract : undefined,
     isLoading: status === ContractCodeStatus.LOADING,
     raw: deployedContract,
-    status,
+    status
   };
 };

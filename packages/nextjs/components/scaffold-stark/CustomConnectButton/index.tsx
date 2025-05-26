@@ -16,7 +16,7 @@ import ConnectModal from "./ConnectModal";
 /**
  * Custom Connect Button (watch balance + custom design)
  */
-export const CustomConnectButton = ({isAuth}:any) => {
+export const CustomConnectButton = ({ isAuth }: any) => {
   useAutoConnect();
   const networkColor = useNetworkColor();
   const { connector } = useConnect();
@@ -63,7 +63,6 @@ export const CustomConnectButton = ({isAuth}:any) => {
 
   if (status === "disconnected" || accountChainId === 0n)
     return <ConnectModal />;
-
 
   if (accountChainId !== targetNetwork.id) {
     console.log(account);

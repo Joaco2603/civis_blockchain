@@ -1,6 +1,6 @@
 import {
   UseAccountResult,
-  useAccount as useStarknetReactAccount,
+  useAccount as useStarknetReactAccount
 } from "@starknet-react/core";
 import { useEffect, useState, useMemo } from "react";
 import { AccountInterface, constants } from "starknet";
@@ -53,19 +53,19 @@ export function useAccount(): UseAccountResult {
         address,
         execute: async () => {
           throw new Error(
-            "Wallet connection issue. Please refresh and reconnect.",
+            "Wallet connection issue. Please refresh and reconnect."
           );
         },
         estimateInvokeFee: async () => {
           throw new Error(
-            "Wallet connection issue. Please refresh and reconnect.",
+            "Wallet connection issue. Please refresh and reconnect."
           );
         },
         getChainId: async () => {
           return constants.StarknetChainId.SN_MAIN;
         },
         cairoVersion: "1",
-        signer: {},
+        signer: {}
       };
 
       return provisionalAccount as unknown as AccountInterface;
@@ -78,6 +78,6 @@ export function useAccount(): UseAccountResult {
     ...starknetAccount,
     account: patchedAccount,
     status: correctedStatus,
-    chainId: accountChainId,
+    chainId: accountChainId
   } as UseAccountResult;
 }

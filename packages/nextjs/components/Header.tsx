@@ -20,8 +20,6 @@ type HeaderMenuLink = {
   icon?: React.ReactNode;
 };
 
-
-
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
   const { theme } = useTheme();
@@ -30,11 +28,7 @@ export const HeaderMenuLinks = () => {
   useEffect(() => {
     setIsDark(theme === "dark");
   }, [theme]);
-  return (
-    <>
-      
-    </>
-  );
+  return <></>;
 };
 
 /**
@@ -76,15 +70,12 @@ export const Header = () => {
     chainId,
     targetNetwork.id,
     targetNetwork.network,
-    chain.network,
+    chain.network
   ]);
 
   return (
     <div className=" lg:static top-0 navbar min-h-0 flex-shrink-0 justify-between z-20 px-0 sm:px-2">
-      <div className="navbar-start w-auto lg:w-1/2 -mr-2">
-     
-       
-      </div>
+      <div className="navbar-start w-auto lg:w-1/2 -mr-2"></div>
       <div className="navbar-end flex-grow mr-2 gap-4">
         {status === "connected" && !isDeployed ? (
           <span className="bg-[#8a45fc] text-[9px] p-1 text-white">

@@ -29,18 +29,21 @@
     "verify": "yarn workspace @ss-2/snfoundry verify"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-progress": "^1.1.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
     "postcss": "^8.4.38",
+    "react-day-picker": "^9.7.0",
     "recharts": "^2.15.3",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animated": "^2.0.0"
   },
   "devDependencies": {
     "daisyui": "^4.7.3",
-    "husky": "^9.0.11",
+    "husky": "^9.1.7",
     "pinst": "^3.0.0",
     "prettier": "^3.2.5"
   },

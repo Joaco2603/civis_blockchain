@@ -2,12 +2,12 @@ import { Abi } from "abi-wan-kanabi";
 import {
   Contract,
   ContractName,
-  getFunctionsByStateMutability,
+  getFunctionsByStateMutability
 } from "~~/utils/scaffold-stark/contract";
 import { ReadOnlyFunctionForm } from "./ReadOnlyFunctionForm";
 
 export const ContractReadMethods = ({
-  deployedContractData,
+  deployedContractData
 }: {
   deployedContractData: Contract<ContractName>;
 }) => {
@@ -17,7 +17,7 @@ export const ContractReadMethods = ({
 
   const functionsToDisplay = getFunctionsByStateMutability(
     (deployedContractData.abi || []) as Abi,
-    "view",
+    "view"
   )
     .filter((fn) => {
       const isQueryableWithParams = fn.inputs.length > 0;
@@ -25,7 +25,7 @@ export const ContractReadMethods = ({
     })
     .map((fn) => {
       return {
-        fn,
+        fn
       };
     });
   if (!functionsToDisplay.length) {

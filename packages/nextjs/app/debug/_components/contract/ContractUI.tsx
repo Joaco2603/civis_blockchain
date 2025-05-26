@@ -7,12 +7,12 @@ import { ContractReadMethods } from "./ContractReadMethods";
 import { Address, Balance } from "~~/components/scaffold-stark";
 import {
   useDeployedContractInfo,
-  useNetworkColor,
+  useNetworkColor
 } from "~~/hooks/scaffold-stark";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import {
   ContractCodeStatus,
-  ContractName,
+  ContractName
 } from "~~/utils/scaffold-stark/contract";
 import { ContractVariables } from "./ContractVariables";
 import { ClassHash } from "~~/components/scaffold-stark/ClassHash";
@@ -21,8 +21,8 @@ const ContractWriteMethods = dynamic(
   () =>
     import("./ContractWriteMethods").then((mod) => mod.ContractWriteMethods),
   {
-    loading: () => <p>Loading Write Methods...</p>,
-  },
+    loading: () => <p>Loading Write Methods...</p>
+  }
 );
 
 type ContractUIProps = {
@@ -35,23 +35,23 @@ type ContractUIProps = {
  **/
 export const ContractUI = ({
   contractName,
-  className = "",
+  className = ""
 }: ContractUIProps) => {
   const [activeTab, setActiveTab] = useState("read");
   const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(
     (value) => !value,
-    false,
+    false
   );
   const { targetNetwork } = useTargetNetwork();
   const {
     raw: deployedContractData,
     isLoading: deployedContractLoading,
-    status,
+    status
   } = useDeployedContractInfo(contractName);
 
   const tabs = [
     { id: "read", label: "Read" },
-    { id: "write", label: "Write" },
+    { id: "write", label: "Write" }
   ];
 
   if (status === ContractCodeStatus.NOT_FOUND) {
