@@ -46,6 +46,8 @@ mod VotingContract {
         election_count: Map<felt252, felt252>, // (election_index, quantity of elections)
     }
 
+    
+
     #[constructor]
     fn constructor(ref self: ContractState) {
         self.id_elections.write(0); // Initialize election ID
