@@ -6,13 +6,13 @@ import {
   contracts,
   ExtractAbiFunctionNamesScaffold,
   UseScaffoldArgsParam,
-  UseScaffoldWriteConfig,
+  UseScaffoldWriteConfig
 } from "~~/utils/scaffold-stark/contract";
 import { useSendTransaction, useNetwork, Abi } from "@starknet-react/core";
 import {
   Contract as StarknetJsContract,
   InvocationsDetails,
-  Call,
+  Call
 } from "starknet";
 import { notification } from "~~/utils/scaffold-stark";
 import { useTransactor } from "./useTransactor";
@@ -27,10 +27,10 @@ export const useScaffoldMultiWriteContract = <
   TFunctionName extends ExtractAbiFunctionNamesScaffold<
     ContractAbi<TContractName>,
     "external"
-  >,
+  >
 >({
   calls,
-  options,
+  options
 }: {
   calls: Array<
     UseScaffoldWriteConfig<TAbi, TContractName, TFunctionName> | Call
@@ -70,12 +70,12 @@ export const useScaffoldMultiWriteContract = <
             // we convert to starknetjs contract instance here since deployed data may be undefined if contract is not deployed
             const contractInstance = new StarknetJsContract(
               contract.abi,
-              contract.address,
+              contract.address
             );
 
             return contractInstance.populate(
               functionName,
-              unParsedArgs as any[],
+              unParsedArgs as any[]
             );
           });
         } else {
@@ -91,7 +91,7 @@ export const useScaffoldMultiWriteContract = <
 
   return {
     ...sendTransactionInstance,
-    sendAsync: sendContractWriteTx,
+    sendAsync: sendContractWriteTx
   };
 };
 
@@ -101,11 +101,11 @@ export function createContractCall<
   TFunctionName extends ExtractAbiFunctionNamesScaffold<
     ContractAbi<TContractName>,
     "external"
-  >,
+  >
 >(
   contractName: TContractName,
   functionName: TFunctionName,
-  args: UseScaffoldArgsParam<TAbi, TContractName, TFunctionName>["args"],
+  args: UseScaffoldArgsParam<TAbi, TContractName, TFunctionName>["args"]
 ) {
   return { contractName, functionName, args };
 }

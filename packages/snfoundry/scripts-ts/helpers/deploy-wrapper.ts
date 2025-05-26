@@ -15,19 +15,19 @@ function main() {
       type: "string",
       choices: ["devnet", "sepolia", "mainnet"],
       default: "devnet",
-      description: "Specify the network to deploy to",
+      description: "Specify the network to deploy to"
     })
     .option("reset", {
       type: "boolean",
       description:
         "Reset deployments (overwrites the latest file only, previous generated files will remain)",
       default: true,
-      hidden: true,
+      hidden: true
     })
     .option("no-reset", {
       type: "boolean",
       description: "Do not reset deployments (keep existing deployments)",
-      default: false,
+      default: false
     })
     .demandOption(["network"])
     .strict() // This will make yargs throw an error for unknown options

@@ -22,7 +22,7 @@ const ScaffoldStarkApp = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const ScaffoldStarkAppWithProviders = ({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) => {

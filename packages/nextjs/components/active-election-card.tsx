@@ -1,31 +1,44 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
-import { Button } from "../components/ui/button"
-import { Progress } from "../components/ui/progress"
-import { CalendarClock, ExternalLink } from "lucide-react"
-import Link from "next/link"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Progress } from "../components/ui/progress";
+import { CalendarClock, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 interface ActiveElectionCardProps {
-  title: string
-  description: string
-  endDate: string
-  participation: number
+  title: string;
+  description: string;
+  endDate: string;
+  participation: number;
 }
 
-export function ActiveElectionCard({ title, description, endDate, participation }: ActiveElectionCardProps) {
+export function ActiveElectionCard({
+  title,
+  description,
+  endDate,
+  participation
+}: ActiveElectionCardProps) {
   // Calculate remaining time
-  const end = new Date(endDate)
-  const now = new Date()
-  const diffTime = Math.max(0, end.getTime() - now.getTime())
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-  const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const end = new Date(endDate);
+  const now = new Date();
+  const diffTime = Math.max(0, end.getTime() - now.getTime());
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor(
+    (diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
 
   const formattedDate = new Intl.DateTimeFormat("es", {
     day: "numeric",
     month: "long",
     year: "numeric",
     hour: "2-digit",
-    minute: "2-digit",
-  }).format(end)
+    minute: "2-digit"
+  }).format(end);
 
   return (
     <Card className="overflow-hidden border-blue-100 dark:border-blue-900">
@@ -33,7 +46,9 @@ export function ActiveElectionCard({ title, description, endDate, participation 
         <CardTitle className="text-lg">{title}</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{description}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          {description}
+        </p>
 
         <div className="space-y-4">
           <div>
@@ -50,7 +65,9 @@ export function ActiveElectionCard({ title, description, endDate, participation 
 
           <div>
             <div className="flex justify-between text-sm mb-1">
-              <span className="text-gray-500 dark:text-gray-400">Participación</span>
+              <span className="text-gray-500 dark:text-gray-400">
+                Participación
+              </span>
               <span className="font-medium">{participation}%</span>
             </div>
             <Progress value={participation} className="h-2" />
@@ -65,5 +82,5 @@ export function ActiveElectionCard({ title, description, endDate, participation 
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

@@ -7,7 +7,7 @@ import {
   addError,
   clearError,
   displayType,
-  FormErrorMessageState,
+  FormErrorMessageState
 } from "./utilsDisplay";
 import {
   isCairoArray,
@@ -17,7 +17,7 @@ import {
   isCairoResult,
   isCairoTuple,
   isCairoType,
-  isCairoU256,
+  isCairoU256
 } from "~~/utils/scaffold-stark";
 import { Struct } from "./Struct";
 import { Abi } from "abi-wan-kanabi";
@@ -40,7 +40,7 @@ export const ContractInput = ({
   stateObjectKey,
   paramType,
   setFormErrorMessage,
-  isDisabled,
+  isDisabled
 }: ContractInputProps) => {
   const inputProps = {
     name: stateObjectKey,
@@ -51,9 +51,9 @@ export const ContractInput = ({
     onChange: (value: any) => {
       setForm((form) => ({
         ...form,
-        [stateObjectKey]: value,
+        [stateObjectKey]: value
       }));
-    },
+    }
   };
 
   const renderInput = () => {
@@ -110,7 +110,7 @@ export const ContractInput = ({
           // @ts-ignore
           abiMember={abi?.find(
             // @ts-ignore
-            (member) => member.name === paramType.type,
+            (member) => member.name === paramType.type
           )}
           isDisabled={isDisabled}
         />

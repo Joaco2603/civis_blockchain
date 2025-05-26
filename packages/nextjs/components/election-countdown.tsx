@@ -1,42 +1,49 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import { Clock } from "lucide-react"
+import { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "../components/ui/card";
+import { Clock } from "lucide-react";
 
 export function ElectionCountdown() {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 0,
-  })
+    seconds: 0
+  });
 
   // Set end date to June 15, 2024 at 23:59:59
-  const endDate = new Date("2024-06-15T23:59:59")
+  const endDate = new Date("2024-06-15T23:59:59");
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const now = new Date()
-      const difference = endDate.getTime() - now.getTime()
+      const now = new Date();
+      const difference = endDate.getTime() - now.getTime();
 
       if (difference > 0) {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          hours: Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          ),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        })
+          seconds: Math.floor((difference % (1000 * 60)) / 1000)
+        });
       } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
-    }
+    };
 
-    calculateTimeLeft()
-    const timer = setInterval(calculateTimeLeft, 1000)
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <Card className="col-span-1 md:col-span-2 lg:col-span-1">
@@ -59,21 +66,27 @@ export function ElectionCountdown() {
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
               {timeLeft.hours.toString().padStart(2, "0")}
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">Horas</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              Horas
+            </div>
           </div>
 
           <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-3">
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
               {timeLeft.minutes.toString().padStart(2, "0")}
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">Minutos</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              Minutos
+            </div>
           </div>
 
           <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-3">
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
               {timeLeft.seconds.toString().padStart(2, "0")}
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">Segundos</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              Segundos
+            </div>
           </div>
         </div>
 
@@ -82,5 +95,5 @@ export function ElectionCountdown() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

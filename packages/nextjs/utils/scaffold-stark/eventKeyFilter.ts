@@ -1,6 +1,6 @@
 import {
   ExtractAbiEvent,
-  ExtractAbiEventNames,
+  ExtractAbiEventNames
 } from "abi-wan-kanabi/dist/kanabi";
 import {
   Abi,
@@ -8,7 +8,7 @@ import {
   AbiEnums,
   AbiStructs,
   CallData,
-  parseCalldataField,
+  parseCalldataField
 } from "starknet";
 import { ContractAbi, ContractName } from "./contract";
 import { feltToHex } from "./common";
@@ -41,7 +41,7 @@ export const serializeEventKey = (
   input: any,
   abiEntry: AbiEntry,
   structs: AbiStructs,
-  enums: AbiEnums,
+  enums: AbiEnums
 ): string[] => {
   if (abiEntry.type === "core::byte_array::ByteArray") {
     return stringToByteArrayFelt(input).map((item) => feltToHex(BigInt(item)));
@@ -83,7 +83,7 @@ const certainLengthTypeMap: { [key: string]: string[][] } = {
   "core::integer::u256": [[], []],
   "core::integer::u512": [[], [], [], []],
   "core::bytes_31::bytes31": [[]],
-  "core::felt252": [[]],
+  "core::felt252": [[]]
 };
 
 export const composeEventFilterKeys = (
@@ -92,7 +92,7 @@ export const composeEventFilterKeys = (
     ContractAbi<ContractName>,
     ExtractAbiEventNames<ContractAbi<ContractName>>
   >,
-  abi: Abi,
+  abi: Abi
 ): string[][] => {
   if (!("members" in event)) {
     return [];
@@ -123,10 +123,10 @@ export const composeEventFilterKeys = (
           mergeArrays(
             member.value.map((matchingItem: any) =>
               serializeEventKey(matchingItem, member, structs, enums).map(
-                (item) => [item],
-              ),
-            ),
-          ),
+                (item) => [item]
+              )
+            )
+          )
         );
       } else if (
         member.type.startsWith("core::array::Array::") &&
@@ -139,17 +139,17 @@ export const composeEventFilterKeys = (
           mergeArrays(
             member.value.map((matchingItem: any) =>
               serializeEventKey(matchingItem, member, structs, enums).map(
-                (item) => [item],
-              ),
-            ),
-          ),
+                (item) => [item]
+              )
+            )
+          )
         );
       } else {
         const serializedKeys = serializeEventKey(
           member.value,
           member,
           structs,
-          enums,
+          enums
         ).map((item) => [item]);
         keys = keys.concat(serializedKeys);
       }

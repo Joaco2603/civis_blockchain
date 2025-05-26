@@ -1,25 +1,26 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "../components/ui/card"
-import { Button } from "../components/ui/button"
-import { Vote, BarChart3, UserCircle } from "lucide-react"
-import Link from "next/link"
-import { useWeb3 } from "~~/app/store/web3-provider"
-
+import { Card, CardContent } from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Vote, BarChart3, UserCircle } from "lucide-react";
+import Link from "next/link";
+import { useWeb3 } from "~~/app/store/web3-provider";
 
 interface UserWelcomeCardProps {
-  className?: string
+  className?: string;
 }
 
 export function UserWelcomeCard({ className = "" }: UserWelcomeCardProps) {
-  const { userDID } = useWeb3()
+  const { userDID } = useWeb3();
 
   return (
     <Card className={`border-blue-100 dark:border-blue-900 ${className}`}>
       <CardContent className="p-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">Bienvenido a VotaChain</h2>
+            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
+              Bienvenido a VotaChain
+            </h2>
             <p className="text-gray-500 dark:text-gray-400 mt-1">
               Plataforma de votación segura, anónima y verificable
             </p>
@@ -52,5 +53,5 @@ export function UserWelcomeCard({ className = "" }: UserWelcomeCardProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

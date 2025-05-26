@@ -1,8 +1,21 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Chart, ChartContainer } from "@/components/ui/chart"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "~~/components/ui/card";
+import { Chart, ChartContainer } from "~~/components/ui/chart";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
 export function AdminStats() {
   const data = [
@@ -17,8 +30,8 @@ export function AdminStats() {
     { name: "Sep", usuarios: 1050, dids: 900, elecciones: 5 },
     { name: "Oct", usuarios: 1150, dids: 980, elecciones: 5 },
     { name: "Nov", usuarios: 1220, dids: 1050, elecciones: 6 },
-    { name: "Dic", usuarios: 1245, dids: 1100, elecciones: 6 },
-  ]
+    { name: "Dic", usuarios: 1245, dids: 1100, elecciones: 6 }
+  ];
 
   return (
     <Card>
@@ -30,7 +43,10 @@ export function AdminStats() {
           <Chart>
             <ChartContainer>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                <LineChart
+                  data={data}
+                  margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -41,19 +57,24 @@ export function AdminStats() {
                           <div className="bg-white dark:bg-gray-800 p-2 rounded-md border shadow-sm">
                             <p className="font-medium">{label}</p>
                             {payload.map((entry, index) => (
-                              <div key={index} className="flex items-center text-xs">
+                              <div
+                                key={index}
+                                className="flex items-center text-xs"
+                              >
                                 <div
                                   className="w-2 h-2 rounded-full mr-1"
                                   style={{ backgroundColor: entry.color }}
                                 ></div>
                                 <span className="mr-1">{entry.name}:</span>
-                                <span className="font-medium">{entry.value}</span>
+                                <span className="font-medium">
+                                  {entry.value}
+                                </span>
                               </div>
                             ))}
                           </div>
-                        )
+                        );
                       }
-                      return null
+                      return null;
                     }}
                   />
                   <Line
@@ -90,5 +111,5 @@ export function AdminStats() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

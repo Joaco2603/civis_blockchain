@@ -2,13 +2,13 @@ import { useCallback } from "react";
 import { useTargetNetwork } from "./useTargetNetwork";
 import {
   useDeployedContractInfo,
-  useTransactor,
+  useTransactor
 } from "~~/hooks/scaffold-stark";
 import {
   ContractAbi,
   ContractName,
   ExtractAbiFunctionNamesScaffold,
-  UseScaffoldWriteConfig,
+  UseScaffoldWriteConfig
 } from "~~/utils/scaffold-stark/contract";
 import { useSendTransaction, useNetwork, Abi } from "@starknet-react/core";
 import { notification } from "~~/utils/scaffold-stark";
@@ -20,11 +20,11 @@ export const useScaffoldWriteContract = <
   TFunctionName extends ExtractAbiFunctionNamesScaffold<
     ContractAbi<TContractName>,
     "external"
-  >,
+  >
 >({
   contractName,
   functionName,
-  args,
+  args
 }: UseScaffoldWriteConfig<TAbi, TContractName, TFunctionName>) => {
   const { data: deployedContractData } = useDeployedContractInfo(contractName);
   const { chain } = useNetwork();
@@ -44,7 +44,7 @@ export const useScaffoldWriteContract = <
 
       if (!deployedContractData) {
         console.error(
-          "Target Contract is not deployed, did you forget to run `yarn deploy`?",
+          "Target Contract is not deployed, did you forget to run `yarn deploy`?"
         );
         return;
       }
@@ -60,7 +60,7 @@ export const useScaffoldWriteContract = <
       // we convert to starknetjs contract instance here since deployed data may be undefined if contract is not deployed
       const contractInstance = new StarknetJsContract(
         deployedContractData.abi,
-        deployedContractData.address,
+        deployedContractData.address
       );
 
       const newCalls = deployedContractData
@@ -80,12 +80,12 @@ export const useScaffoldWriteContract = <
       functionName,
       sendTransactionInstance,
       sendTxnWrapper,
-      targetNetwork.id,
-    ],
+      targetNetwork.id
+    ]
   );
 
   return {
     ...sendTransactionInstance,
-    sendAsync: sendContractWriteTx,
+    sendAsync: sendContractWriteTx
   };
 };

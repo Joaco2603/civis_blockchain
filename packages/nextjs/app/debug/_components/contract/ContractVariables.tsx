@@ -5,13 +5,13 @@ import {
   ContractName,
   GenericContract,
   InheritedFunctions,
-  getFunctionsByStateMutability,
+  getFunctionsByStateMutability
 } from "~~/utils/scaffold-stark/contract";
 import { DisplayVariable } from "./DisplayVariable";
 
 export const ContractVariables = ({
   refreshDisplayVariables,
-  deployedContractData,
+  deployedContractData
 }: {
   refreshDisplayVariables: boolean;
   deployedContractData: Contract<ContractName>;
@@ -22,7 +22,7 @@ export const ContractVariables = ({
 
   const functionsToDisplay = getFunctionsByStateMutability(
     (deployedContractData.abi || []) as Abi,
-    "view",
+    "view"
   )
     .filter((fn) => {
       const isQueryableWithParams = fn.inputs.length === 0;
@@ -30,7 +30,7 @@ export const ContractVariables = ({
     })
     .map((fn) => {
       return {
-        fn,
+        fn
       };
     });
   if (!functionsToDisplay.length) {

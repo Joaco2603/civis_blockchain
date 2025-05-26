@@ -49,8 +49,8 @@ const getContractDataFromDeployments = (): Record<
             [contractName]: {
               address: contractData.address,
               abi: abiContent.abi.filter((item) => item.type !== "l1_handler"),
-              classHash: contractData.classHash,
-            },
+              classHash: contractData.classHash
+            }
           };
         } catch (e) {}
       });
@@ -80,7 +80,7 @@ const generateTsAbis = () => {
     prettier.format(
       `${generatedContractComment}\n\nconst deployedContracts = {${fileContent}} as const;\n\nexport default deployedContracts;`,
       {
-        parser: "typescript",
+        parser: "typescript"
       }
     )
   );

@@ -11,7 +11,7 @@ import {
   FormErrorMessageState,
   isError,
   getTopErrorMessage,
-  decodeContractResponse,
+  decodeContractResponse
 } from "~~/app/debug/_components/contract";
 import { AbiFunction } from "~~/utils/scaffold-stark/contract";
 import { BlockNumber } from "starknet";
@@ -27,10 +27,10 @@ type ReadOnlyFunctionFormProps = {
 export const ReadOnlyFunctionForm = ({
   contractAddress,
   abiFunction,
-  abi,
+  abi
 }: ReadOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() =>
-    getInitialFormState(abiFunction),
+    getInitialFormState(abiFunction)
   );
   const [inputValue, setInputValue] = useState<any | undefined>(undefined);
   const [formErrorMessage, setFormErrorMessage] =
@@ -39,7 +39,7 @@ export const ReadOnlyFunctionForm = ({
 
   const { contract: contractInstance } = useContract({
     abi,
-    address: contractAddress,
+    address: contractAddress
   });
 
   const { isFetching, data, refetch, error } = useReadContract({
@@ -48,7 +48,7 @@ export const ReadOnlyFunctionForm = ({
     abi: [...abi],
     args: inputValue || [],
     enabled: !!inputValue && !!contractInstance,
-    blockIdentifier: "pending" as BlockNumber,
+    blockIdentifier: "pending" as BlockNumber
   });
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export const ReadOnlyFunctionForm = ({
                   resp: data,
                   abi,
                   functionOutputs: abiFunction?.outputs,
-                  asText: true,
+                  asText: true
                 })}
               </pre>
             </div>

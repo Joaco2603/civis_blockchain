@@ -5,7 +5,7 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
-  InformationCircleIcon,
+  InformationCircleIcon
 } from "@heroicons/react/24/solid";
 import { useScrollLock } from "~~/hooks/useScrollLock";
 
@@ -28,7 +28,7 @@ const ENUM_STATUSES = {
   loading: <span className="w-6 loading loading-spinner"></span>,
   error: <ExclamationCircleIcon className="w-7 text-error" />,
   info: <InformationCircleIcon className="w-7 text-info" />,
-  warning: <ExclamationTriangleIcon className="w-7 text-warning" />,
+  warning: <ExclamationTriangleIcon className="w-7 text-warning" />
 };
 
 const DEFAULT_DURATION = 3000;
@@ -39,7 +39,7 @@ const ToastContent = ({
   content,
   status,
   icon,
-  position,
+  position
 }: NotificationProps & { t: Toast }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [needsExpand, setNeedsExpand] = useState(false);
@@ -50,7 +50,7 @@ const ToastContent = ({
   useEffect(() => {
     if (contentRef.current) {
       const lineHeight = parseInt(
-        window.getComputedStyle(contentRef.current).lineHeight,
+        window.getComputedStyle(contentRef.current).lineHeight
       );
       const totalHeight = contentRef.current.scrollHeight;
       const numberOfLines = totalHeight / lineHeight;
@@ -119,7 +119,7 @@ const Notification = ({
   status,
   duration = DEFAULT_DURATION,
   icon,
-  position = DEFAULT_POSITION,
+  position = DEFAULT_POSITION
 }: NotificationProps) => {
   return toast.custom(
     (t: Toast) => (
@@ -134,8 +134,8 @@ const Notification = ({
     ),
     {
       duration: status === "loading" ? Infinity : duration,
-      position,
-    },
+      position
+    }
   );
 };
 
@@ -157,5 +157,5 @@ export const notification = {
   },
   remove: (toastId: string) => {
     toast.remove(toastId);
-  },
+  }
 };

@@ -20,12 +20,12 @@ const STRK_ADDRESS =
 const TOKEN_INFO: Record<string, { name: string; symbol: string }> = {
   [ETH_ADDRESS]: {
     name: "Ether",
-    symbol: "ETH",
+    symbol: "ETH"
   },
   [STRK_ADDRESS]: {
     name: "Stark Token",
-    symbol: "STRK",
-  },
+    symbol: "STRK"
+  }
 };
 
 type DisplayVariableProps = {
@@ -40,7 +40,7 @@ export const DisplayVariable = ({
   contractAddress,
   abiFunction,
   refreshDisplayVariables,
-  abi, //   inheritedFrom,
+  abi //   inheritedFrom,
 }: DisplayVariableProps) => {
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === "dark";
@@ -93,13 +93,13 @@ export const DisplayVariable = ({
     isLoading,
     isFetching,
     refetch,
-    error,
+    error
     // eslint-disable-next-line react-hooks/rules-of-hooks
   } = useReadContract({
     address: contractAddress,
     functionName: abiFunction.name,
     abi: [...abi],
-    blockIdentifier: "pending" as BlockNumber, // TODO : notify when failed - add error
+    blockIdentifier: "pending" as BlockNumber // TODO : notify when failed - add error
   });
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { showAnimation } = useAnimationConfig(result);
@@ -155,7 +155,7 @@ export const DisplayVariable = ({
               abi,
               functionOutputs: abiFunction?.outputs,
               asText: true,
-              showAsString: false,
+              showAsString: false
             })}
           </div>
         </div>

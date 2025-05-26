@@ -12,7 +12,7 @@ import type {
   CairoSecp256k1Point,
   CairoTuple,
   CairoU256,
-  CairoVoid,
+  CairoVoid
 } from "abi-wan-kanabi/dist/kanabi";
 import { AbiEnum, AbiStruct } from "./contract";
 
@@ -26,7 +26,7 @@ export const isCairoU256 = (type: string): type is CairoU256 =>
   /core::integer::u256$/.test(type);
 
 export const isCairoContractAddress = (
-  type: string,
+  type: string
 ): type is CairoContractAddress =>
   type.includes("core::starknet::contract_address::ContractAddress");
 
@@ -52,7 +52,7 @@ export const isCairoByteArray = (type: string): type is CairoByteArray =>
   type.includes("core::byte_array::ByteArray");
 
 export const isCairoSecp256k1Point = (
-  type: string,
+  type: string
 ): type is CairoSecp256k1Point =>
   type.includes("core::starknet::secp256k1::Secp256k1Point");
 

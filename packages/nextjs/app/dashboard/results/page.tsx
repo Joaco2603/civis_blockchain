@@ -1,8 +1,8 @@
-import { DashboardHeader } from "@/components/dashboard-header"
-import { DashboardSidebar } from "@/components/dashboard-sidebar"
-import { EnhancedResultsOverview } from "@/components/enhanced-results-overview"
-import { DemographicAnalysis } from "@/components/demographic-analysis"
-import { TimeSeriesAnalysis } from "@/components/time-series-analysis"
+import { DashboardHeader } from "~~/components/dashboard-header";
+import { DashboardSidebar } from "~~/components/dashboard-sidebar";
+import { EnhancedResultsOverview } from "~~/components/enhanced-results-overview";
+import { DemographicAnalysis } from "~~/components/demographic-analysis";
+import { TimeSeriesAnalysis } from "~~/components/time-series-analysis";
 
 export default function ResultsPage() {
   return (
@@ -11,7 +11,9 @@ export default function ResultsPage() {
       <div className="flex-1">
         <DashboardHeader />
         <main className="p-6">
-          <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">Resultados</h1>
+          <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+            Resultados
+          </h1>
 
           <div className="mb-8">
             <EnhancedResultsOverview />
@@ -24,5 +26,5 @@ export default function ResultsPage() {
         </main>
       </div>
     </div>
-  )
+  );
 }

@@ -10,7 +10,7 @@ import {
   ChevronDownIcon,
   DocumentDuplicateIcon,
   QrCodeIcon,
-  UserCircleIcon,
+  UserCircleIcon
 } from "@heroicons/react/24/outline";
 import { useLocalStorage } from "usehooks-ts";
 import { BlockieAvatar, isENS } from "~~/components/scaffold-stark";
@@ -37,7 +37,7 @@ export const AddressInfoDropdown = ({
   address,
   ensAvatar,
   displayName,
-  blockExplorerAddressLink,
+  blockExplorerAddressLink
 }: AddressInfoDropdownProps) => {
   const { disconnect } = useDisconnect();
   const [addressCopied, setAddressCopied] = useState(false);
@@ -58,7 +58,7 @@ export const AddressInfoDropdown = ({
 
   function handleConnectBurner(
     e: React.MouseEvent<HTMLButtonElement>,
-    ix: number,
+    ix: number
   ) {
     const connector = connectors.find((it) => it.id == "burner-wallet");
     if (connector && connector instanceof BurnerConnector) {
@@ -73,8 +73,8 @@ export const AddressInfoDropdown = ({
     "lastUsedConnector",
     { id: "" },
     {
-      initializeWithValue: false,
-    },
+      initializeWithValue: false
+    }
   );
 
   return (
@@ -234,7 +234,7 @@ export const AddressInfoDropdown = ({
                                 ></BlockieAvatar>
                                 {`${burnerAcc.accountAddress.slice(
                                   0,
-                                  6,
+                                  6
                                 )}...${burnerAcc.accountAddress.slice(-4)}`}
                               </button>
                             </div>
@@ -246,7 +246,7 @@ export const AddressInfoDropdown = ({
                 </div>
                 <div className="backdrop-blur fixed inset-0 z-40"></div>
               </>,
-              document.body,
+              document.body
             )}
 
           {/* TODO: reinstate if needed */}

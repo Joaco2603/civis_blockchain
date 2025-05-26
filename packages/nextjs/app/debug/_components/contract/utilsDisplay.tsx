@@ -6,7 +6,7 @@ import {
   isCairoOption,
   isCairoResult,
   isCairoSpan,
-  parseGenericType,
+  parseGenericType
 } from "~~/utils/scaffold-stark/types";
 import { formatEther } from "ethers";
 import { Abi } from "abi-wan-kanabi";
@@ -19,17 +19,17 @@ export type FormErrorMessageState = Record<string, string>;
 export function addError(
   state: FormErrorMessageState,
   key: string,
-  message: string,
+  message: string
 ): FormErrorMessageState {
   return {
     ...state,
-    [key]: message,
+    [key]: message
   };
 }
 
 export function clearError(
   state: FormErrorMessageState,
-  key: string,
+  key: string
 ): FormErrorMessageState {
   delete state[key];
   return state;
@@ -57,7 +57,7 @@ const baseNumberType = new Set([
   "core::integer::i64",
   "core::integer::i32",
   "core::integer::i16",
-  "core::integer::i8",
+  "core::integer::i8"
 ]);
 const baseHexType = new Set(["core::felt252"]);
 const baseType = new Set([
@@ -80,7 +80,7 @@ const baseType = new Set([
   "core::integer::i8",
   "core::bool",
   "core::bytes_31::bytes31",
-  "core::byte_array::ByteArray",
+  "core::byte_array::ByteArray"
 ]);
 
 const hexToAscii = (hexString: string): string => {
@@ -116,7 +116,7 @@ const _decodeContractResponseItem = (
   respItem: any,
   abiType: any,
   abi: Abi,
-  showAsString?: boolean,
+  showAsString?: boolean
 ): any => {
   if (respItem === undefined) {
     return "";
@@ -189,9 +189,9 @@ const _decodeContractResponseItem = (
           return _decodeContractResponseItem(
             respItem[index],
             getFieldType(type, abi),
-            abi,
+            abi
           );
-        },
+        }
       );
 
       return `(${decodedArr.join(",")})`;
@@ -209,7 +209,7 @@ const _decodeContractResponseItem = (
       return [];
     }
     return respItem.map((arrItem) =>
-      _decodeContractResponseItem(arrItem, getFieldType(arrItemType, abi), abi),
+      _decodeContractResponseItem(arrItem, getFieldType(arrItemType, abi), abi)
     );
   }
 
@@ -224,8 +224,8 @@ const _decodeContractResponseItem = (
       _decodeContractResponseItem(
         spanItem,
         getFieldType(spanItemType, abi),
-        abi,
-      ),
+        abi
+      )
     );
   }
 
@@ -235,13 +235,13 @@ const _decodeContractResponseItem = (
     const decoded: Record<string, any> = {};
     for (const [structKey, structValue] of Object.entries(respItem)) {
       const structItemDef = (members || []).find(
-        (item: any) => item.name === structKey,
+        (item: any) => item.name === structKey
       );
       if (structItemDef && structItemDef.type) {
         decoded[structKey] = _decodeContractResponseItem(
           structValue,
           structItemDef,
-          abi,
+          abi
         );
       }
     }
@@ -285,7 +285,7 @@ const _decodeContractResponseItem = (
           if (enumValue === undefined) continue;
 
           const enumItemDef = variants.find(
-            (item: any) => item.name === enumKey,
+            (item: any) => item.name === enumKey
           );
           if (enumItemDef && enumItemDef.type) {
             if (abiType.name === "contracts::YourContract::TransactionState") {
@@ -295,7 +295,7 @@ const _decodeContractResponseItem = (
             const processedValue = _decodeContractResponseItem(
               enumValue,
               { type: enumItemDef.type },
-              abi,
+              abi
             );
             return { [enumKey]: processedValue };
           }
@@ -312,13 +312,13 @@ const _decodeContractResponseItem = (
         }
 
         const enumVariant = abiType.variants?.find(
-          (v: any) => v.name === enumKey,
+          (v: any) => v.name === enumKey
         );
         if (enumVariant) {
           const processedValue = _decodeContractResponseItem(
             enumValue,
             { type: enumVariant.type },
-            abi,
+            abi
           );
           return { [enumKey]: processedValue };
         }
@@ -336,7 +336,7 @@ export const decodeContractResponse = ({
   abi,
   functionOutputs,
   asText,
-  showAsString,
+  showAsString
 }: {
   resp: DisplayContent | DisplayContent[];
   abi: Abi;
@@ -358,8 +358,8 @@ export const decodeContractResponse = ({
         arrResp[index],
         abiTypes[index],
         abi,
-        showAsString,
-      ),
+        showAsString
+      )
     );
   }
 

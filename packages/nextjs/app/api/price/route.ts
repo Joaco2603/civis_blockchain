@@ -11,7 +11,7 @@ export async function GET(_: Request) {
     return Response.json(json);
   } catch (e) {
     return Response.json({
-      starknet: { usd: 0 },
+      starknet: { usd: 0 }
     });
   }
 }

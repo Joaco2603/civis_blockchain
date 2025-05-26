@@ -3,7 +3,7 @@ import { devnet, sepolia, mainnet, Chain } from "@starknet-react/chains";
 export const chains = {
   devnet,
   sepolia,
-  mainnet,
+  mainnet
 };
 
 type ChainAttributes = {
@@ -16,14 +16,14 @@ export type ChainWithAttributes = Chain & Partial<ChainAttributes>;
 
 export const NETWORKS_EXTRA_DATA: Record<string, ChainAttributes> = {
   [chains.devnet.network]: {
-    color: "#b8af0c",
+    color: "#b8af0c"
   },
   [chains.mainnet.network]: {
-    color: "#ff8b9e",
+    color: "#ff8b9e"
   },
   [chains.sepolia.network]: {
-    color: ["#5f4bb6", "#87ff65"],
-  },
+    color: ["#5f4bb6", "#87ff65"]
+  }
 };
 /**
  * Gives the block explorer transaction URL, returns empty string if the network is a local chain
@@ -100,6 +100,6 @@ export function getBlockExplorerLink(network: Chain) {
 
 export function getTargetNetworks(): ChainWithAttributes[] {
   return scaffoldConfig.targetNetworks.map((targetNetwork) => ({
-    ...targetNetwork,
+    ...targetNetwork
   }));
 }

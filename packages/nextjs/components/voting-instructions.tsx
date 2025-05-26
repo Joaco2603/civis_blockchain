@@ -1,5 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Shield, Lock, CheckCircle } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "~~/components/ui/card";
+import { Shield, Lock, CheckCircle } from "lucide-react";
 
 export function VotingInstructions() {
   return (
@@ -14,7 +19,9 @@ export function VotingInstructions() {
           </div>
           <div className="text-sm">
             <p className="font-medium">Selecciona tu candidato</p>
-            <p className="text-gray-500 dark:text-gray-400">Elige entre los candidatos disponibles o voto en blanco.</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              Elige entre los candidatos disponibles o voto en blanco.
+            </p>
           </div>
         </div>
 
@@ -24,7 +31,9 @@ export function VotingInstructions() {
           </div>
           <div className="text-sm">
             <p className="font-medium">Confirma con tu wallet</p>
-            <p className="text-gray-500 dark:text-gray-400">Firma la transacción con tu wallet para emitir el voto.</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              Firma la transacción con tu wallet para emitir el voto.
+            </p>
           </div>
         </div>
 
@@ -35,11 +44,12 @@ export function VotingInstructions() {
           <div className="text-sm">
             <p className="font-medium">Recibe confirmación</p>
             <p className="text-gray-500 dark:text-gray-400">
-              Guarda el identificador de transacción para verificaciones futuras.
+              Guarda el identificador de transacción para verificaciones
+              futuras.
             </p>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

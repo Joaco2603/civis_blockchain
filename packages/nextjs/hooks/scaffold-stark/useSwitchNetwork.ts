@@ -9,10 +9,10 @@ export const useSwitchNetwork = () => {
           params: {
             chainId: `SN_${
               network == "mainnet" ? "MAIN" : network.toUpperCase()
-            }`,
-          },
+            }`
+          }
         });
       }
-    },
+    }
   };
 };

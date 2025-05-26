@@ -3,6 +3,143 @@
  * You should not edit it manually or your changes might be overwritten.
  */
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  devnet: {
+    VotingContract: {
+      address:
+        "0x2953a21f4ec5ab736197fa078644247dd6917e2936e477e3dd938ecb05f173e",
+      abi: [
+        {
+          type: "impl",
+          name: "VotingABIImpl",
+          interface_name: "contracts::voting::VotingABI"
+        },
+        {
+          type: "interface",
+          name: "contracts::voting::VotingABI",
+          items: [
+            {
+              type: "function",
+              name: "vote",
+              inputs: [
+                {
+                  name: "election_index",
+                  type: "core::felt252"
+                },
+                {
+                  name: "president_index",
+                  type: "core::felt252"
+                }
+              ],
+              outputs: [],
+              state_mutability: "external"
+            },
+            {
+              type: "function",
+              name: "get_all_votes",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::array::Array::<core::felt252>"
+                }
+              ],
+              state_mutability: "view"
+            },
+            {
+              type: "function",
+              name: "get_quantity_votes",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::felt252"
+                }
+              ],
+              state_mutability: "view"
+            },
+            {
+              type: "function",
+              name: "get_my_vote",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::felt252"
+                }
+              ],
+              state_mutability: "view"
+            },
+            {
+              type: "function",
+              name: "create_election",
+              inputs: [
+                {
+                  name: "election_name",
+                  type: "core::felt252"
+                },
+                {
+                  name: "presidents_index",
+                  type: "core::array::Array::<core::felt252>"
+                }
+              ],
+              outputs: [],
+              state_mutability: "external"
+            },
+            {
+              type: "function",
+              name: "get_all_elections",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::array::Array::<core::felt252>"
+                }
+              ],
+              state_mutability: "view"
+            },
+            {
+              type: "function",
+              name: "create_president",
+              inputs: [
+                {
+                  name: "president_name",
+                  type: "core::felt252"
+                }
+              ],
+              outputs: [],
+              state_mutability: "external"
+            },
+            {
+              type: "function",
+              name: "get_all_presidents",
+              inputs: [
+                {
+                  name: "president_index",
+                  type: "core::felt252"
+                }
+              ],
+              outputs: [
+                {
+                  type: "core::array::Array::<core::felt252>"
+                }
+              ],
+              state_mutability: "view"
+            }
+          ]
+        },
+        {
+          type: "constructor",
+          name: "constructor",
+          inputs: []
+        },
+        {
+          type: "event",
+          name: "contracts::voting::VotingContract::Event",
+          kind: "enum",
+          variants: []
+        }
+      ],
+      classHash:
+        "0x6f32b671ab8fdced8740c1f70227d817104eb5cc1d7fbd12fd31fe34485e3c1"
+    }
+  }
+} as const;
 
 export default deployedContracts;

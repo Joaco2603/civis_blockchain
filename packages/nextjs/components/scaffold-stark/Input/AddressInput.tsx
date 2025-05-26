@@ -14,7 +14,7 @@ export const AddressInput = ({
   name,
   placeholder,
   onChange,
-  disabled,
+  disabled
 }: CommonInputProps<Address | string>) => {
   // TODO : Add Starkname functionality here with cached profile, check ENS on scaffold-stark
   const [_debouncedValue] = useDebounceValue(value, 500);
@@ -35,7 +35,7 @@ export const AddressInput = ({
 
       onChange(newValue);
     },
-    [onChange],
+    [onChange]
   );
 
   return (

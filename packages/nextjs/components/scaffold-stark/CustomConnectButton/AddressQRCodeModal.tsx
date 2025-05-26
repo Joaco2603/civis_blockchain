@@ -9,7 +9,7 @@ type AddressQRCodeModalProps = {
 
 export const AddressQRCodeModal = ({
   address,
-  modalId,
+  modalId
 }: AddressQRCodeModalProps) => {
   return (
     <>

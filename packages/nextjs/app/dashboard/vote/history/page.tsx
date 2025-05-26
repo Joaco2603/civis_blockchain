@@ -1,6 +1,6 @@
-import { DashboardHeader } from "@/components/dashboard-header"
-import { DashboardSidebar } from "@/components/dashboard-sidebar"
-import { VoteHistory } from "@/components/vote-history"
+import { DashboardHeader } from "~~/components/dashboard-header";
+import { DashboardSidebar } from "~~/components/dashboard-sidebar";
+import { VoteHistory } from "~~/components/vote-history";
 
 export default function VoteHistoryPage() {
   return (
@@ -9,10 +9,12 @@ export default function VoteHistoryPage() {
       <div className="flex-1">
         <DashboardHeader />
         <main className="p-6">
-          <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">Historial de Votos</h1>
+          <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+            Historial de Votos
+          </h1>
           <VoteHistory />
         </main>
       </div>
     </div>
-  )
+  );
 }

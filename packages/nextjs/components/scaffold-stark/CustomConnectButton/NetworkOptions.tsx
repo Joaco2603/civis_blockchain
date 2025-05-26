@@ -25,7 +25,7 @@ export const NetworkOptions = ({ hidden = false }: NetworkOptionsProps) => {
   // note: might need a cleaner solutiojn
   const allowedNetworksMapping = useMemo(() => {
     return Object.fromEntries(
-      allowedNetworks.map((chain) => [chain.network, chain.id.toString(16)]),
+      allowedNetworks.map((chain) => [chain.network, chain.id.toString(16)])
     );
   }, [allowedNetworks]);
 
@@ -40,7 +40,7 @@ export const NetworkOptions = ({ hidden = false }: NetworkOptionsProps) => {
               type="button"
               onClick={() =>
                 switchChain({
-                  chainId: allowedNetworksMapping[allowedNetwork.network],
+                  chainId: allowedNetworksMapping[allowedNetwork.network]
                 })
               }
             >
@@ -49,7 +49,7 @@ export const NetworkOptions = ({ hidden = false }: NetworkOptionsProps) => {
                 Switch to{" "}
                 <span
                   style={{
-                    color: getNetworkColor(allowedNetwork, isDarkMode),
+                    color: getNetworkColor(allowedNetwork, isDarkMode)
                   }}
                 >
                   {allowedNetwork.name}

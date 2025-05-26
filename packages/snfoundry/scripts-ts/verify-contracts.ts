@@ -10,7 +10,7 @@ function main() {
     .option("network", {
       type: "string",
       description: "Specify the network mainnet or sepolia",
-      demandOption: true,
+      demandOption: true
     })
     .parseSync();
 

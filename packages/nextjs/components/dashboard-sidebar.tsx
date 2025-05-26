@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { createContext, useContext, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Vote,
@@ -14,130 +14,132 @@ import {
   Users,
   ListPlus,
   UserCircle,
-  History,
-} from "lucide-react"
-import { Button } from "../components/ui/button"
-import { Sheet, SheetContent } from "../components/ui/sheet"
-import { useWeb3 } from "../app/store/web3-provider"
+  History
+} from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Sheet, SheetContent } from "../components/ui/sheet";
+import { useWeb3 } from "../app/store/web3-provider";
 
 type SidebarContextType = {
-  open: boolean
-  setOpen: (open: boolean) => void
-  toggleSidebar: () => void
-}
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  toggleSidebar: () => void;
+};
 
 const SidebarContext = createContext<SidebarContextType>({
   open: false,
   setOpen: () => {},
-  toggleSidebar: () => {},
-})
+  toggleSidebar: () => {}
+});
 
-export const useSidebar = () => useContext(SidebarContext)
+export const useSidebar = () => useContext(SidebarContext);
 
 export function DashboardSidebar() {
-  const [open, setOpen] = useState(false)
-  const pathname = usePathname()
-  const { role } = useWeb3()
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const { role } = useWeb3();
 
   const toggleSidebar = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   // User navigation items
   const userNavItems = [
     {
       title: "Panel Principal",
       href: "/dashboard",
-      icon: LayoutDashboard,
+      icon: LayoutDashboard
     },
     {
       title: "Mi Perfil",
       href: "/dashboard/profile",
-      icon: UserCircle,
+      icon: UserCircle
     },
     {
       title: "Votaciones Activas",
       href: "/dashboard/vote/active",
-      icon: Vote,
+      icon: Vote
     },
     {
       title: "Mis Votos",
       href: "/dashboard/vote/history",
-      icon: History,
+      icon: History
     },
     {
       title: "Resultados",
       href: "/dashboard/results",
-      icon: BarChart3,
+      icon: BarChart3
     },
     {
       title: "Auditoría",
       href: "/dashboard/audit",
-      icon: Shield,
+      icon: Shield
     },
     {
       title: "Documentación",
       href: "/dashboard/docs",
-      icon: FileText,
-    },
-  ]
+      icon: FileText
+    }
+  ];
 
   // Admin navigation items
   const adminNavItems = [
     {
       title: "Panel de Control",
       href: "/dashboard/admin",
-      icon: LayoutDashboard,
+      icon: LayoutDashboard
     },
     {
       title: "Gestión de DIDs",
       href: "/dashboard/admin/dids",
-      icon: Shield,
+      icon: Shield
     },
     {
       title: "Asignación de Roles",
       href: "/dashboard/admin/roles",
-      icon: UserCircle,
+      icon: UserCircle
     },
     {
       title: "Partidos Políticos",
       href: "/dashboard/admin/parties",
-      icon: Users,
+      icon: Users
     },
     {
       title: "Elecciones",
       href: "/dashboard/admin/elections",
-      icon: Vote,
+      icon: Vote
     },
     {
       title: "Crear Elección",
       href: "/dashboard/admin/elections/create",
-      icon: ListPlus,
+      icon: ListPlus
     },
     {
       title: "Estadísticas",
       href: "/dashboard/admin/stats",
-      icon: BarChart3,
+      icon: BarChart3
     },
     {
       title: "Configuración",
       href: "/dashboard/admin/settings",
-      icon: Settings,
-    },
-  ]
+      icon: Settings
+    }
+  ];
 
   // Use the appropriate navigation items based on user role
-  const navItems = role === "admin" ? adminNavItems : userNavItems
+  const navItems = role === "admin" ? adminNavItems : userNavItems;
 
   const SidebarContent = () => (
     <div className="h-full flex flex-col">
       <div className="p-4 border-b">
         <div className="flex items-center space-x-2">
           <Shield className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-          <span className="font-bold text-lg">VotaChain</span>
+          <span className="font-bold text-lg">Civis</span>
         </div>
         <div className="flex items-center justify-between mt-1">
-          <p className="text-xs text-gray-500 dark:text-gray-400">Plataforma de Votación</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Plataforma de Votación
+          </p>
           {role === "admin" && (
             <span className="text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 px-2 py-0.5 rounded-full">
               Admin
@@ -148,7 +150,8 @@ export function DashboardSidebar() {
 
       <nav className="flex-1 p-4 space-y-1">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
+          const isActive =
+            pathname === item.href || pathname.startsWith(`${item.href}/`);
 
           return (
             <Link
@@ -163,25 +166,31 @@ export function DashboardSidebar() {
             >
               <item.icon
                 className={`h-5 w-5 ${
-                  isActive ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
+                  isActive
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-500 dark:text-gray-400"
                 }`}
               />
-              <span className={isActive ? "font-medium" : ""}>{item.title}</span>
+              <span className={isActive ? "font-medium" : ""}>
+                {item.title}
+              </span>
             </Link>
-          )
+          );
         })}
       </nav>
 
       <div className="p-4 border-t">
         <div className="bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg">
-          <h4 className="font-medium text-sm text-blue-900 dark:text-blue-100">Votación Segura</h4>
+          <h4 className="font-medium text-sm text-blue-900 dark:text-blue-100">
+            Votación Segura
+          </h4>
           <p className="text-xs text-blue-700 dark:text-blue-300 mt-1">
             Tus votos son anónimos y verificables en la blockchain.
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <SidebarContext.Provider value={{ open, setOpen, toggleSidebar }}>
@@ -193,12 +202,17 @@ export function DashboardSidebar() {
       {/* Mobile Sidebar */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="left" className="p-0 w-64">
-          <Button variant="ghost" size="icon" className="absolute right-4 top-4" onClick={() => setOpen(false)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-4 top-4"
+            onClick={() => setOpen(false)}
+          >
             <X className="h-5 w-5" />
           </Button>
           <SidebarContent />
         </SheetContent>
       </Sheet>
     </SidebarContext.Provider>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+import { useState } from "react";
+import { Button } from "~~/components/ui/button";
+import { Calendar } from "~~/components/ui/calendar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,58 +10,79 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Slider } from "@/components/ui/slider"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { format } from "date-fns"
-import { es } from "date-fns/locale"
-import { CalendarIcon, Download, Filter, BarChart3, PieChart, LineChart, Share2, X } from "lucide-react"
+  DropdownMenuTrigger
+} from "~~/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "~~/components/ui/popover";
+import { Slider } from "~~/components/ui/slider";
+import { Switch } from "~~/components/ui/switch";
+import { Label } from "~~/components/ui/label";
+import { Badge } from "~~/components/ui/badge";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import {
+  CalendarIcon,
+  Download,
+  Filter,
+  BarChart3,
+  PieChart,
+  LineChart,
+  Share2,
+  X
+} from "lucide-react";
 
 export type FilterState = {
-  dateRange: { from: Date | undefined; to: Date | undefined }
-  regions: string[]
-  demographics: string[]
-  ageRange: [number, number]
-  showRealTime: boolean
-  chartType: "bar" | "pie" | "line"
-}
+  dateRange: { from: Date | undefined; to: Date | undefined };
+  regions: string[];
+  demographics: string[];
+  ageRange: [number, number];
+  showRealTime: boolean;
+  chartType: "bar" | "pie" | "line";
+};
 
 interface DataFilterBarProps {
-  onFilterChange: (filters: FilterState) => void
-  className?: string
+  onFilterChange: (filters: FilterState) => void;
+  className?: string;
 }
 
-export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps) {
-  const [date, setDate] = useState<{ from: Date | undefined; to: Date | undefined }>({
+export function DataFilterBar({
+  onFilterChange,
+  className
+}: DataFilterBarProps) {
+  const [date, setDate] = useState<{
+    from: Date | undefined;
+    to: Date | undefined;
+  }>({
     from: undefined,
-    to: undefined,
-  })
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([])
-  const [selectedDemographics, setSelectedDemographics] = useState<string[]>([])
-  const [ageRange, setAgeRange] = useState<[number, number]>([18, 80])
-  const [showRealTime, setShowRealTime] = useState(true)
-  const [chartType, setChartType] = useState<"bar" | "pie" | "line">("bar")
-  const [activeFilters, setActiveFilters] = useState<string[]>([])
+    to: undefined
+  });
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedDemographics, setSelectedDemographics] = useState<string[]>(
+    []
+  );
+  const [ageRange, setAgeRange] = useState<[number, number]>([18, 80]);
+  const [showRealTime, setShowRealTime] = useState(true);
+  const [chartType, setChartType] = useState<"bar" | "pie" | "line">("bar");
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   const regions = [
     { id: "norte", name: "Región Norte" },
     { id: "sur", name: "Región Sur" },
     { id: "este", name: "Región Este" },
     { id: "oeste", name: "Región Oeste" },
-    { id: "central", name: "Región Central" },
-  ]
+    { id: "central", name: "Región Central" }
+  ];
 
   const demographics = [
     { id: "urban", name: "Urbano" },
     { id: "rural", name: "Rural" },
     { id: "male", name: "Masculino" },
     { id: "female", name: "Femenino" },
-    { id: "firstTime", name: "Primer voto" },
-  ]
+    { id: "firstTime", name: "Primer voto" }
+  ];
 
   const applyFilters = () => {
     const newFilters: FilterState = {
@@ -70,28 +91,28 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
       demographics: selectedDemographics,
       ageRange,
       showRealTime,
-      chartType,
-    }
+      chartType
+    };
 
     // Update active filters for display
-    const newActiveFilters: string[] = []
-    if (date.from) newActiveFilters.push("Fecha")
-    if (selectedRegions.length) newActiveFilters.push("Regiones")
-    if (selectedDemographics.length) newActiveFilters.push("Demografía")
-    if (ageRange[0] !== 18 || ageRange[1] !== 80) newActiveFilters.push("Edad")
+    const newActiveFilters: string[] = [];
+    if (date.from) newActiveFilters.push("Fecha");
+    if (selectedRegions.length) newActiveFilters.push("Regiones");
+    if (selectedDemographics.length) newActiveFilters.push("Demografía");
+    if (ageRange[0] !== 18 || ageRange[1] !== 80) newActiveFilters.push("Edad");
 
-    setActiveFilters(newActiveFilters)
-    onFilterChange(newFilters)
-  }
+    setActiveFilters(newActiveFilters);
+    onFilterChange(newFilters);
+  };
 
   const resetFilters = () => {
-    setDate({ from: undefined, to: undefined })
-    setSelectedRegions([])
-    setSelectedDemographics([])
-    setAgeRange([18, 80])
-    setShowRealTime(true)
-    setChartType("bar")
-    setActiveFilters([])
+    setDate({ from: undefined, to: undefined });
+    setSelectedRegions([]);
+    setSelectedDemographics([]);
+    setAgeRange([18, 80]);
+    setShowRealTime(true);
+    setChartType("bar");
+    setActiveFilters([]);
 
     onFilterChange({
       dateRange: { from: undefined, to: undefined },
@@ -99,22 +120,30 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
       demographics: [],
       ageRange: [18, 80],
       showRealTime: true,
-      chartType: "bar",
-    })
-  }
+      chartType: "bar"
+    });
+  };
 
   const toggleRegion = (regionId: string) => {
-    setSelectedRegions((prev) => (prev.includes(regionId) ? prev.filter((id) => id !== regionId) : [...prev, regionId]))
-  }
+    setSelectedRegions((prev) =>
+      prev.includes(regionId)
+        ? prev.filter((id) => id !== regionId)
+        : [...prev, regionId]
+    );
+  };
 
   const toggleDemographic = (demographicId: string) => {
     setSelectedDemographics((prev) =>
-      prev.includes(demographicId) ? prev.filter((id) => id !== demographicId) : [...prev, demographicId],
-    )
-  }
+      prev.includes(demographicId)
+        ? prev.filter((id) => id !== demographicId)
+        : [...prev, demographicId]
+    );
+  };
 
   return (
-    <div className={`bg-white dark:bg-gray-950 border rounded-lg p-3 ${className}`}>
+    <div
+      className={`bg-white dark:bg-gray-950 border rounded-lg p-3 ${className}`}
+    >
       <div className="flex flex-wrap items-center gap-2">
         <Popover>
           <PopoverTrigger asChild>
@@ -123,7 +152,8 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
               {date.from ? (
                 date.to ? (
                   <>
-                    {format(date.from, "dd/MM/yyyy", { locale: es })} - {format(date.to, "dd/MM/yyyy", { locale: es })}
+                    {format(date.from, "dd/MM/yyyy", { locale: es })} -{" "}
+                    {format(date.to, "dd/MM/yyyy", { locale: es })}
                   </>
                 ) : (
                   format(date.from, "dd/MM/yyyy", { locale: es })
@@ -137,12 +167,18 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             <Calendar
               mode="range"
               selected={date}
-              onSelect={(range) => setDate(range || { from: undefined, to: undefined })}
+              onSelect={(range) =>
+                setDate(range || { from: undefined, to: undefined })
+              }
               initialFocus
               locale={es}
             />
             <div className="p-3 border-t flex justify-between">
-              <Button variant="ghost" size="sm" onClick={() => setDate({ from: undefined, to: undefined })}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setDate({ from: undefined, to: undefined })}
+              >
                 Limpiar
               </Button>
               <Button size="sm" onClick={() => applyFilters()}>
@@ -164,13 +200,23 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">Regiones</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
+                Regiones
+              </DropdownMenuLabel>
               {regions.map((region) => (
-                <DropdownMenuItem key={region.id} onSelect={(e) => e.preventDefault()}>
-                  <div className="flex items-center space-x-2 w-full" onClick={() => toggleRegion(region.id)}>
+                <DropdownMenuItem
+                  key={region.id}
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  <div
+                    className="flex items-center space-x-2 w-full"
+                    onClick={() => toggleRegion(region.id)}
+                  >
                     <div
                       className={`w-4 h-4 rounded-sm border flex items-center justify-center ${
-                        selectedRegions.includes(region.id) ? "bg-primary border-primary" : "border-gray-300"
+                        selectedRegions.includes(region.id)
+                          ? "bg-primary border-primary"
+                          : "border-gray-300"
                       }`}
                     >
                       {selectedRegions.includes(region.id) && (
@@ -197,13 +243,23 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">Demografía</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
+                Demografía
+              </DropdownMenuLabel>
               {demographics.map((demo) => (
-                <DropdownMenuItem key={demo.id} onSelect={(e) => e.preventDefault()}>
-                  <div className="flex items-center space-x-2 w-full" onClick={() => toggleDemographic(demo.id)}>
+                <DropdownMenuItem
+                  key={demo.id}
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  <div
+                    className="flex items-center space-x-2 w-full"
+                    onClick={() => toggleDemographic(demo.id)}
+                  >
                     <div
                       className={`w-4 h-4 rounded-sm border flex items-center justify-center ${
-                        selectedDemographics.includes(demo.id) ? "bg-primary border-primary" : "border-gray-300"
+                        selectedDemographics.includes(demo.id)
+                          ? "bg-primary border-primary"
+                          : "border-gray-300"
                       }`}
                     >
                       {selectedDemographics.includes(demo.id) && (
@@ -230,14 +286,18 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             <DropdownMenuSeparator />
 
             <div className="p-2">
-              <label className="text-xs font-normal text-muted-foreground">Rango de edad</label>
+              <label className="text-xs font-normal text-muted-foreground">
+                Rango de edad
+              </label>
               <div className="mt-2 px-1">
                 <Slider
                   value={ageRange}
                   min={18}
                   max={80}
                   step={1}
-                  onValueChange={(value) => setAgeRange(value as [number, number])}
+                  onValueChange={(value) =>
+                    setAgeRange(value as [number, number])
+                  }
                 />
                 <div className="flex justify-between mt-1 text-xs text-muted-foreground">
                   <span>{ageRange[0]} años</span>
@@ -250,7 +310,11 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
 
             <div className="p-2">
               <div className="flex items-center space-x-2">
-                <Switch id="real-time" checked={showRealTime} onCheckedChange={setShowRealTime} />
+                <Switch
+                  id="real-time"
+                  checked={showRealTime}
+                  onCheckedChange={setShowRealTime}
+                />
                 <Label htmlFor="real-time">Datos en tiempo real</Label>
               </div>
             </div>
@@ -280,8 +344,8 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
-                setChartType("bar")
-                applyFilters()
+                setChartType("bar");
+                applyFilters();
               }}
             >
               <BarChart3 className="mr-2 h-4 w-4" />
@@ -289,8 +353,8 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                setChartType("pie")
-                applyFilters()
+                setChartType("pie");
+                applyFilters();
               }}
             >
               <PieChart className="mr-2 h-4 w-4" />
@@ -298,8 +362,8 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                setChartType("line")
-                applyFilters()
+                setChartType("line");
+                applyFilters();
               }}
             >
               <LineChart className="mr-2 h-4 w-4" />
@@ -334,7 +398,12 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
         </Button>
 
         {activeFilters.length > 0 && (
-          <Button variant="ghost" size="sm" className="h-8 ml-auto" onClick={resetFilters}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 ml-auto"
+            onClick={resetFilters}
+          >
             <X className="mr-2 h-3.5 w-3.5" />
             Limpiar filtros
           </Button>
@@ -351,5 +420,5 @@ export function DataFilterBar({ onFilterChange, className }: DataFilterBarProps)
         </div>
       )}
     </div>
-  )
+  );
 }

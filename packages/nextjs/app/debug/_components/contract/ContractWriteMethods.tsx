@@ -3,12 +3,12 @@ import { WriteOnlyFunctionForm } from "~~/app/debug/_components/contract";
 import {
   Contract,
   ContractName,
-  getFunctionsByStateMutability,
+  getFunctionsByStateMutability
 } from "~~/utils/scaffold-stark/contract";
 
 export const ContractWriteMethods = ({
   onChange,
-  deployedContractData,
+  deployedContractData
 }: {
   onChange: () => void;
   deployedContractData: Contract<ContractName>;
@@ -19,10 +19,10 @@ export const ContractWriteMethods = ({
 
   const functionsToDisplay = getFunctionsByStateMutability(
     (deployedContractData.abi || []) as Abi,
-    "external",
+    "external"
   ).map((fn) => {
     return {
-      fn,
+      fn
     };
   });
 

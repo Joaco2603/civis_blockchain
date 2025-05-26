@@ -10,7 +10,7 @@ import {
   transformAbiFunction,
   FormErrorMessageState,
   getTopErrorMessage,
-  isError,
+  isError
 } from "~~/app/debug/_components/contract";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { useNetwork, useContract } from "@starknet-react/core";
@@ -34,10 +34,10 @@ export const WriteOnlyFunctionForm = ({
   abi,
   abiFunction,
   onChange,
-  contractAddress,
+  contractAddress
 }: WriteOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() =>
-    getInitialFormState(abiFunction),
+    getInitialFormState(abiFunction)
   );
   const [formErrorMessage, setFormErrorMessage] =
     useState<FormErrorMessageState>({});
@@ -46,7 +46,7 @@ export const WriteOnlyFunctionForm = ({
   const {
     writeTransaction,
     transactionReceiptInstance,
-    sendTransactionInstance,
+    sendTransactionInstance
   } = useTransactor();
   const { data: txResult } = transactionReceiptInstance;
   const { targetNetwork } = useTargetNetwork();
@@ -56,12 +56,12 @@ export const WriteOnlyFunctionForm = ({
       !chain ||
       chain?.network !== targetNetwork.network ||
       walletStatus === "disconnected",
-    [chain, targetNetwork.network, walletStatus],
+    [chain, targetNetwork.network, walletStatus]
   );
 
   const { contract: contractInstance } = useContract({
     abi,
-    address: contractAddress,
+    address: contractAddress
   });
 
   const { isPending: isLoading, error } = sendTransactionInstance;
@@ -81,10 +81,10 @@ export const WriteOnlyFunctionForm = ({
           ? [
               contractInstance.populate(
                 abiFunction.name,
-                getArgsAsStringInputFromForm(form),
-              ),
+                getArgsAsStringInputFromForm(form)
+              )
             ]
-          : [],
+          : []
       );
     } catch (e: any) {
       const errorPattern = /Contract (.*?)"}/;
@@ -93,7 +93,7 @@ export const WriteOnlyFunctionForm = ({
 
       console.error(
         "⚡️ ~ file: WriteOnlyFunctionForm.tsx:handleWrite ~ error",
-        message,
+        message
       );
     }
   };
@@ -102,7 +102,7 @@ export const WriteOnlyFunctionForm = ({
     useState<InvokeTransactionReceiptResponse>();
   useEffect(() => {
     setDisplayedTxResult(
-      txResult as unknown as InvokeTransactionReceiptResponse,
+      txResult as unknown as InvokeTransactionReceiptResponse
     );
     onChange();
   }, [txResult, onChange]);

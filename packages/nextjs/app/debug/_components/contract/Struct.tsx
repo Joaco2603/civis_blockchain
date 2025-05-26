@@ -24,12 +24,12 @@ export const Struct = ({
   abiMember,
   abi,
   setFormErrorMessage,
-  isDisabled = false,
+  isDisabled = false
 }: StructProps) => {
   const [form, setForm] = useState<Record<string, any>>(() =>
     getInitialTupleFormState(
-      abiMember ?? { type: "struct", name: "", members: [] },
-    ),
+      abiMember ?? { type: "struct", name: "", members: [] }
+    )
   );
 
   // select enum
@@ -45,14 +45,14 @@ export const Struct = ({
       abiMember.members.forEach((member, index) => {
         argsStruct[member.name || `input_${index}_`] = {
           type: member.type,
-          value: values[index],
+          value: values[index]
         };
       });
     } else {
       abiMember.variants.forEach((variant, index) => {
         argsStruct[variant.name || `input_${index}_`] = {
           type: variant.type,
-          value: index === activeVariantIndex ? values[index] : undefined,
+          value: index === activeVariantIndex ? values[index] : undefined
         };
       });
     }
@@ -60,7 +60,7 @@ export const Struct = ({
     setParentForm({
       ...parentForm,
       [parentStateObjectKey]:
-        abiMember.type === "struct" ? argsStruct : { variant: argsStruct },
+        abiMember.type === "struct" ? argsStruct : { variant: argsStruct }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [abiMember, JSON.stringify(form, replacer), activeVariantIndex]);
@@ -88,7 +88,7 @@ export const Struct = ({
                 const key = getFunctionInputKey(
                   abiMember.name || "struct",
                   member,
-                  index,
+                  index
                 );
                 return (
                   <ContractInput
@@ -106,7 +106,7 @@ export const Struct = ({
                 const key = getFunctionInputKey(
                   abiMember.name || "tuple",
                   variant,
-                  index,
+                  index
                 );
 
                 return (

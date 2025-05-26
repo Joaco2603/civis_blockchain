@@ -1,13 +1,23 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
-import { Badge } from "../components/ui/badge"
-import { CalendarClock, CheckCircle, Clock } from "lucide-react"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from "../components/ui/card";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger
+} from "../components/ui/tabs";
+import { Badge } from "../components/ui/badge";
+import { CalendarClock, CheckCircle, Clock } from "lucide-react";
 
 export function ElectionsSummary() {
-  const [activeTab, setActiveTab] = useState("past")
+  const [activeTab, setActiveTab] = useState("past");
 
   const pastElections = [
     {
@@ -15,38 +25,38 @@ export function ElectionsSummary() {
       title: "Elecciones Municipales 2023",
       date: "15 Nov 2023",
       participation: "68.4%",
-      status: "Finalizada",
+      status: "Finalizada"
     },
     {
       id: "past-2",
       title: "Consulta Ciudadana",
       date: "30 Sep 2023",
       participation: "52.1%",
-      status: "Finalizada",
+      status: "Finalizada"
     },
     {
       id: "past-3",
       title: "Elección de Representantes Vecinales",
       date: "15 Ago 2023",
       participation: "45.7%",
-      status: "Finalizada",
-    },
-  ]
+      status: "Finalizada"
+    }
+  ];
 
   const upcomingElections = [
     {
       id: "upcoming-1",
       title: "Elecciones Regionales",
       date: "15 Jul 2024",
-      status: "Programada",
+      status: "Programada"
     },
     {
       id: "upcoming-2",
       title: "Consulta de Presupuesto Participativo",
       date: "30 Ago 2024",
-      status: "Programada",
-    },
-  ]
+      status: "Programada"
+    }
+  ];
 
   return (
     <Card>
@@ -80,7 +90,9 @@ export function ElectionsSummary() {
                   <Badge variant="outline" className="mb-1">
                     {election.status}
                   </Badge>
-                  <div className="text-sm font-medium">Participación: {election.participation}</div>
+                  <div className="text-sm font-medium">
+                    Participación: {election.participation}
+                  </div>
                 </div>
               </div>
             ))}
@@ -109,5 +121,5 @@ export function ElectionsSummary() {
         </Tabs>
       </CardContent>
     </Card>
-  )
+  );
 }

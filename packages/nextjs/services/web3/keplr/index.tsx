@@ -4,13 +4,13 @@ import {
   ConnectorNotFoundError,
   InjectedConnector,
   InjectedConnectorOptions,
-  UserRejectedRequestError,
+  UserRejectedRequestError
 } from "@starknet-react/core";
 import {
   Permission,
   RequestFnCall,
   RpcMessage,
-  RpcTypeToMessageMap,
+  RpcTypeToMessageMap
 } from "get-starknet-core";
 import { getKeplrFromWindowSync } from "./getKeplrFromWindow";
 import { Keplr } from "@keplr-wallet/types";
@@ -29,10 +29,10 @@ export class KeplrConnector extends InjectedConnector {
     const options: InjectedConnectorOptions = {
       id: keplrWalletId,
       name: keplrWalletName,
-      icon: keplrWalletIcon,
+      icon: keplrWalletIcon
     };
     super({
-      options,
+      options
     });
     this.__options = options;
   }
@@ -74,7 +74,7 @@ export class KeplrConnector extends InjectedConnector {
     if (!this.__wallet) return false;
 
     const permissions: Permission[] = await this.request({
-      type: "wallet_getPermissions",
+      type: "wallet_getPermissions"
     });
 
     return permissions?.includes(Permission.ACCOUNTS);
@@ -95,13 +95,13 @@ export class KeplrConnector extends InjectedConnector {
           type: "wallet_switchStarknetChain",
           params: [
             {
-              chainId: `starknet:${shortString.decodeShortString(chainIdHint + "")}`,
-            },
-          ],
+              chainId: `starknet:${shortString.decodeShortString(chainIdHint + "")}`
+            }
+          ]
         });
       }
       accounts = await this.request({
-        type: "wallet_requestAccounts",
+        type: "wallet_requestAccounts"
       });
     } catch {
       throw new UserRejectedRequestError();
@@ -115,14 +115,14 @@ export class KeplrConnector extends InjectedConnector {
       "accountsChanged",
       async (accounts) => {
         await this._onAccountsChanged(accounts);
-      },
+      }
     );
 
     (this.__wallet.starknet.on as WalletEventListener)(
       "networkChanged",
       async (chainId, accounts) => {
         await this._onNetworkChanged(chainId, accounts);
-      },
+      }
     );
 
     const [account] = accounts;
@@ -132,7 +132,7 @@ export class KeplrConnector extends InjectedConnector {
 
     return {
       account,
-      chainId,
+      chainId
     };
   }
 
@@ -147,7 +147,7 @@ export class KeplrConnector extends InjectedConnector {
   }
 
   async request<T extends RpcMessage["type"]>(
-    call: RequestFnCall<T>,
+    call: RequestFnCall<T>
   ): Promise<RpcTypeToMessageMap[T]["result"]> {
     this._ensureWallet();
     if (!this.__wallet) {
@@ -164,7 +164,7 @@ export class KeplrConnector extends InjectedConnector {
   private async _isLocked() {
     const accounts = await this.request({
       type: "wallet_requestAccounts",
-      params: { silent_mode: true },
+      params: { silent_mode: true }
     });
 
     return accounts.length === 0;

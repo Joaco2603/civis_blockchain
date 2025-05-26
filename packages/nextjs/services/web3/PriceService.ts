@@ -10,7 +10,7 @@ export const fetchPrice = async (retries = 3): Promise<number> => {
     } catch (error) {
       console.error(
         `Attempt ${attempt + 1} - Error fetching STRK price from Coingecko: `,
-        error,
+        error
       );
       attempt++;
       if (attempt === retries) {
@@ -49,7 +49,7 @@ class PriceService {
 
   public startPolling(
     ref: any,
-    setNativeCurrencyPrice: (price: number) => void,
+    setNativeCurrencyPrice: (price: number) => void
   ) {
     if (this.listeners.has(ref)) return;
     this.listeners.set(ref, { setNativeCurrencyPrice });
@@ -88,7 +88,7 @@ class PriceService {
       }
       this.listeners.forEach((listener) => {
         listener.setNativeCurrencyPrice(
-          strkPrice || this.currentNativeCurrencyPrice,
+          strkPrice || this.currentNativeCurrencyPrice
         );
       });
     } catch (error) {

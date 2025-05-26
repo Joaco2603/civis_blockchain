@@ -8,7 +8,7 @@ import { getChecksumAddress, StarkProfile } from "starknet";
 import { devnet } from "@starknet-react/chains";
 import {
   CheckCircleIcon,
-  DocumentDuplicateIcon,
+  DocumentDuplicateIcon
 } from "@heroicons/react/24/outline";
 import { useTargetNetwork } from "~~/hooks/scaffold-stark/useTargetNetwork";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-stark";
@@ -32,7 +32,7 @@ const blockieSizeMap = {
   lg: 9,
   xl: 10,
   "2xl": 12,
-  "3xl": 15,
+  "3xl": 15
 };
 
 /**
@@ -44,7 +44,7 @@ export const Address = ({
   format,
   profile,
   isLoading,
-  size = "base",
+  size = "base"
 }: AddressProps) => {
   const [ensAvatar, setEnsAvatar] = useState<string | null>();
   const [addressCopied, setAddressCopied] = useState(false);
@@ -63,7 +63,7 @@ export const Address = ({
 
   const blockExplorerAddressLink = getBlockExplorerAddressLink(
     targetNetwork,
-    checkSumAddress || address || "",
+    checkSumAddress || address || ""
   );
 
   const isValidHexAddress = (value: string): boolean => {
@@ -80,7 +80,7 @@ export const Address = ({
   };
 
   const [displayAddress, setDisplayAddress] = useState(
-    checkSumAddress?.slice(0, 6) + "..." + checkSumAddress?.slice(-4),
+    checkSumAddress?.slice(0, 6) + "..." + checkSumAddress?.slice(-4)
   );
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export const Address = ({
       setDisplayAddress(addressWithFallback || "");
     } else {
       setDisplayAddress(
-        addressWithFallback.slice(0, 6) + "..." + addressWithFallback.slice(-4),
+        addressWithFallback.slice(0, 6) + "..." + addressWithFallback.slice(-4)
       );
     }
   }, [profile, checkSumAddress, address, format]);

@@ -7,7 +7,7 @@ export const ConnectedAddress = () => {
   const connectedAddress = useAccount();
 
   const { data: fetchedProfile, isLoading } = useScaffoldStarkProfile(
-    connectedAddress.address,
+    connectedAddress.address
   );
 
   return (
