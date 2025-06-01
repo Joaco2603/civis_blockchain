@@ -1,52 +1,58 @@
 use starknet::storage::Vec;
-use starknet::ContractAddress;
-use starknet::get_caller_address;
+use starknet::{ContractAddress, get_caller_address};
 
 #[starknet::interface]
 trait VotingABI<TContractState> {
     // Voting functions
-    fn vote(ref self: TContractState,election_index: felt252, president_index: felt252);
+    fn vote(ref self: TContractState, election_index: felt252, president_index: felt252);
     fn get_all_votes(self: @TContractState) -> Array<felt252>;
     fn get_quantity_votes(self: @TContractState) -> felt252;
     fn get_my_vote(self: @TContractState) -> felt252;
 
     //Election management functions
-    fn create_election(ref self: TContractState, election_name: felt252, presidents_index: Array<felt252>);
-    fn get_all_elections(self: @TContractState) ->  Array<felt252>;
+    fn create_election(
+        ref self: TContractState, election_name: felt252, presidents_array: Array<felt252>,
+    );
+    fn get_all_elections(self: @TContractState) -> Array<felt252>;
 
     // President management functions
     fn create_president(ref self: TContractState, president_name: felt252);
     fn get_all_presidents(self: @TContractState, president_index: felt252) -> Array<felt252>;
 }
 
+#[starknet::storage_node]
+struct ElectionDataNode {
+    election_name: felt252,
+    presidents: Vec<felt252>,
+    election_count: felt252,
+}
+
 #[starknet::contract]
 mod VotingContract {
-    use super::{ContractAddress, get_caller_address, VotingABI};
-    use starknet::storage::{StorageMapReadAccess, StorageMapWriteAccess, StoragePointerWriteAccess};
-    use starknet::storage::StoragePathEntry;
-    use starknet::storage::StoragePointerReadAccess;
-    use starknet::storage::Map;
+    use starknet::storage::{
+        Map, MutableVecTrait, StorageMapReadAccess, StorageMapWriteAccess, StoragePathEntry,
+        StoragePointerReadAccess, StoragePointerWriteAccess,
+    };
+    use super::{ContractAddress, ElectionDataNode, VotingABI, get_caller_address};
 
     #[storage]
     struct Storage {
         // Map to store votes
-        vote: Map<ContractAddress, (felt252, felt252, felt252)>, // (election_index, president_index, boolean indicating if the user has voted)
+        vote: Map<
+            ContractAddress, (felt252, felt252, felt252),
+        >, // (election_index, president_index, boolean indicating if the user has voted)
         quantity_votes: felt252, // Total number of votes cast
         voters: Map<felt252, ContractAddress>, // Map of voters by index
         // Map to store votes for each election
         id_elections: felt252, // Unique identifier for elections
-        election: Map<felt252, felt252>, // (election_index, president_index)
-        election_name: Map<felt252, felt252>, // (election_index, name_election)
-        election_president_len: Map<felt252, felt252>, // (election_index, quantity of presidents)
-        // Quantity of votes for each election
+        election: Map<felt252, ElectionDataNode>, // (election_index, president_index)
         // Map to store votes for each president
         id_presidents: felt252, // Unique identifier for presidents
         president: Map<felt252, felt252>,
         president_count: Map<felt252, felt252>, // (president, quantity of votes)
-        election_count: Map<felt252, felt252>, // (election_index, quantity of elections)
+        election_count: Map<felt252, felt252> // (election_index, quantity of elections)
     }
 
-    
 
     #[constructor]
     fn constructor(ref self: ContractState) {
@@ -56,7 +62,7 @@ mod VotingContract {
 
     #[abi(embed_v0)]
     impl VotingABIImpl of VotingABI<ContractState> {
-        fn vote(ref self: ContractState,election_index: felt252, president_index: felt252) {
+        fn vote(ref self: ContractState, election_index: felt252, president_index: felt252) {
             // Verificar que no ha votado antes
             let caller = get_caller_address();
             let already_voted = self.vote.read(caller);
@@ -66,11 +72,13 @@ mod VotingContract {
             let election_vec = self.election.read(election_index);
 
             // --- Validation Logic ---
-            // A common validation is to check if the election_index exists and has presidents registered.
-            // You can check the length of the Vec. If len > 0, the election exists and has presidents.
-            assert(election_vec != 0, 'Invalid election index'); 
-            
-            if( president_index != self.president.read(election_index) ) {
+            // A common validation is to check if the election_index exists and has presidents
+            // registered.
+            // You can check the length of the Vec. If len > 0, the election exists and has
+            // presidents.
+            assert(election_vec != 0, 'Invalid election index');
+
+            if (president_index != self.president.read(election_index)) {
                 // Si el índice del presidente es inválido, lanzar un error
                 assert(false, 'Invalid president index');
             }
@@ -84,10 +92,9 @@ mod VotingContract {
                 if stored_president == president_index {
                     president_is_valid = true;
                     break;
-                };
+                }
                 i += 1;
             }
-
 
             assert(president_is_valid, 'Invalid president index');
             // --- End Validation Logic ---
@@ -121,10 +128,10 @@ mod VotingContract {
                 all_votes.append(president);
                 all_votes.append(voted);
                 i += 1;
-            };
+            }
             all_votes
         }
-        
+
         fn get_my_vote(self: @ContractState) -> felt252 {
             // Obtener si el usuario ha votado por el presidente
             let caller = get_caller_address();
@@ -140,42 +147,45 @@ mod VotingContract {
         }
 
         fn create_election(
-            ref self: ContractState,
-            election_name: felt252,
-            presidents_index: Array<felt252>
+            ref self: ContractState, election_name: felt252, presidents_array: Array<felt252>,
         ) {
-            // Crear nuevo ID
-            let current_id = self.id_elections.read();
-            let new_id = current_id + 1;
-            self.id_elections.write(new_id);
-        
-            // Guardar nombre de la elección
-            self.election_name.write(new_id, election_name);
-        
+            // Read current id
+            let current_id: felt252 = self.id_elections.read();
+
+            // Create new id
+            let new_id = current_id;
+
+            // Election ref
+            let election_ref = self.election.entry(new_id);
+
             // Inicializar contador de presidentes
             let mut i: u32 = 0;
-            let len = presidents_index.len();
-        
-            // Recorrer presidentes y guardar uno por uno
+            let len = presidents_array.len();
+
+            // Iterate presidents and save each one
             while i < len.try_into().unwrap() {
-                // Validar si existe en mapa global
+                // Check if it exist in global map
                 let key: felt252 = i.into();
-                assert(self.president.read(key) != 0, 'Invalid president');
-        
-                // Guardar presidente asociado a esta elección
-                self.election.write(new_id, key);
+                let mut president = self.president.read(key);
+                assert(president != 0, 'Invalid president');
+
+                // Add each one element to Vec
+
+                election_ref.presidents.push(president);
+
                 i += 1;
             }
-        
-            // Inicializar el contador de votos
-            self.election_count.write(new_id, 0);
+
+            // Save presidents associated with the election
+            election_ref.election_name.write(election_name);
+            election_ref.election_count.write(0);
         }
 
         fn get_all_elections(self: @ContractState) -> Array<felt252> {
             let mut i: u32 = 0;
             let len = self.id_elections.read();
             let mut elections = array![];
-            
+
             while i < len.try_into().unwrap() {
                 // Validar si existe en mapa global
                 let key: felt252 = i.into();
@@ -194,7 +204,7 @@ mod VotingContract {
             let current_id = self.id_presidents.read();
             let new_id = current_id + 1;
             self.id_presidents.write(new_id);
-                    
+
             // Guardar nombre de la elección
             self.president.write(new_id, president_name);
 
@@ -210,9 +220,8 @@ mod VotingContract {
             while i < count {
                 all_presidents.append(self.president.entry(i.into()).read());
                 i += 1;
-            };
+            }
             return all_presidents;
         }
-
-   }
+    }
 }
